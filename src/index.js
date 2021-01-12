@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // Importando componentes da interface.
 import App from './main/App';
-// Importando dependências de template.
-import "./commom/template/dependencies.js";
+// Importado bibliotecas de estilo.
+import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
 
 ReactDOM.render(
   <React.StrictMode>

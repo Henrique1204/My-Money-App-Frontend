@@ -4,9 +4,7 @@ import "./App.css";
 
 const App = () => {
   return (
-    <div className="App wrapper">
-      <h1>App</h1>
-    </div>
+    <div className="App">App</div>
   );
 };
 
