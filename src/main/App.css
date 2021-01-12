@@ -31,3 +31,36 @@ img {
     max-width: 100%;
     display: block;
 }
+
+/* Animações e efeitos */
+@keyframes crescer {
+    from {
+        max-width: 100px;
+        font-size: 0rem;
+    }
+    to {
+        max-width: 20rem;
+        font-size: auto;
+    }
+}
+
+@keyframes encolher {
+    from {
+        font-size: 0rem;
+        max-width: 20rem;
+    }
+    to {
+        max-width: 100px;
+        font-size: auto;
+    }
+}
+
+.menuToggle {
+    max-width: 100px;
+    animation: encolher 0.3s forwards;
+}
+
+.menuToggleAberto {
+    max-width: 20rem;
+    animation: crescer 0.3s forwards;
+}

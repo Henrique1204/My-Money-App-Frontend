@@ -1,10 +1,6 @@
 .SideBar {
-    width: 100px;
-    padding: 1rem 2rem;
+    width: 100%;
     height: calc(100vh - 40px);
-    background-color: #101014;
-}
-
-.SideBar.aberto {
-    width: 15rem;
+    color: #BFBFBF;
+    background-color: #22222F;
 }
