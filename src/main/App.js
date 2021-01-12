@@ -1,10 +1,14 @@
 import React from "react";
 // Importando estilo.
 import "./App.css";
+// Importando componentes da interface.
+import Header from "../Componente/Header/Header";
 
 const App = () => {
   return (
-    <div className="App">App</div>
+    <div className="App">
+      <Header />
+    </div>
   );
 };
 

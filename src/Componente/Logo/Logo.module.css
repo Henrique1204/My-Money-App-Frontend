@@ -1,0 +1,18 @@
+.Logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #F4F4F4;
+    background-color: #0C61A8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoSec {
+    font-weight: 300;
+}
+
+.Logo.aberto {
+    width: 15rem;
+}
