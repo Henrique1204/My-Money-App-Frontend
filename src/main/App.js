@@ -5,9 +5,11 @@ import "./App.css";
 import Header from "../Componente/Header/Header";
 
 const App = () => {
+  const [isMenuAberto, setIsMenuAberto] = React.useState(true);
+
   return (
     <div className="App">
-      <Header />
+      <Header isAberto={isMenuAberto} setIsAberto={setIsMenuAberto} />
     </div>
   );
 };

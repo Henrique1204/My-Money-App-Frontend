@@ -4,10 +4,16 @@ import estilos from "./Header.module.css";
 // Importando componentes da interface.
 import Logo from "../Logo/Logo.js";
 
-const Header = () => {
+const Header = ({ isAberto, setIsAberto }) => {
     return (
         <header className={estilos.Header} >
-            <Logo isAberto={true} />
+            <Logo isAberto={isAberto} />
+
+            <nav>
+                <button className={`${estilos.btnMenu} p-2`} onClick={() => setIsAberto((valor) => !valor)} >
+                    <span></span>
+                </button>
+            </nav>
         </header>
     );
 };

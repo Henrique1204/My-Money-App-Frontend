@@ -1,12 +1,18 @@
 .Logo {
+    height: 2.5rem;
     font-size: 1.25rem;
     font-weight: 700;
     text-decoration: none;
+    line-height: 1;
     color: #F4F4F4;
     background-color: #0C61A8;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.Logo:hover, .Logo:focus {
+    color: #F4F4F4;
 }
 
 .logoSec {

@@ -2,3 +2,26 @@
     background-color: #0C91E8;
     display: flex;
 }
+
+.btnMenu {
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    display: block;
+    transition: background-color 0.2s ease;
+    outline: none!important;
+}
+
+.btnMenu::after {
+    content: "";
+    width: 20px;
+    height: 2px;
+    border-radius: 4px;
+    background-color: #F4F4F4;
+    box-shadow: 0 6px 0 #F4F4F4, 0 -6px 0 #F4F4F4;
+    display: block;
+}
+
+.btnMenu:hover {
+    background-color: #0C61A8;
+}
