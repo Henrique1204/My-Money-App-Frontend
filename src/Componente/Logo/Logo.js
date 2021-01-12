@@ -6,12 +6,12 @@ import Icon from "../../Util/Icon.js";
 
 const Logo = ({ isAberto }) => {
     return (
-        <a href="/" className={`${estilos.Logo} ${(isAberto ? estilos.aberto : "")} px-3 py-2`} >
+        <h1 href="/" className={`${estilos.Logo} ${(isAberto ? estilos.aberto : "")}`} >
             <span>
                 {isAberto && <Icon nome="money" />} My
                 <span className={estilos.logoSec}> M{ isAberto && "oney" }</span>
             </span>
-        </a>
+        </h1>
     );
 };
 

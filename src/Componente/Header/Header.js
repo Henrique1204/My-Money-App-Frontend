@@ -10,7 +10,7 @@ const Header = ({ isAberto, setIsAberto }) => {
             <Logo isAberto={isAberto} />
 
             <nav>
-                <button className={`${estilos.btnMenu} p-2`} onClick={() => setIsAberto((valor) => !valor)} >
+                <button className={`${estilos.btnMenu}`} onClick={() => setIsAberto((valor) => !valor)} >
                     <span></span>
                 </button>
             </nav>
