@@ -39,7 +39,7 @@ img {
         font-size: 0rem;
     }
     to {
-        max-width: 20rem;
+        max-width: 16rem;
         font-size: auto;
     }
 }
@@ -47,7 +47,7 @@ img {
 @keyframes encolher {
     from {
         font-size: 0rem;
-        max-width: 20rem;
+        max-width: 16rem;
     }
     to {
         max-width: 100px;
@@ -61,6 +61,8 @@ img {
 }
 
 .menuToggleAberto {
-    max-width: 20rem;
+    max-width: 16rem;
+    white-space: nowrap;
     animation: crescer 0.3s forwards;
+    overflow: hidden;
 }

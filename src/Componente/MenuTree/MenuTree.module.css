@@ -19,10 +19,11 @@
 
 .MenuTree > i {
     transition: 0.3s ease;
+    transform: rotate(-90deg);
 }
 
 .subMenu.ativo .MenuTree > i {
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
 }
 
 @keyframes crescer {
@@ -30,13 +31,13 @@
         max-height: 0px;
     }
     to {
-        max-height: 200px;
+        max-height: 400px;
     }
 }
 
 @keyframes encolher {
     from {
-        max-height: 200px;
+        max-height: 400px;
     }
     to {
         max-height: 0px;
@@ -52,7 +53,7 @@
 }
 
 .subMenu.ativo ul {
-    max-height: 200px;
+    max-height: 400px;
     animation: crescer 0.3s forwards;
     opacity: 1;
 }
