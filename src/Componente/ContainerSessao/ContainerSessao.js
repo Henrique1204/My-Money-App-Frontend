@@ -4,7 +4,7 @@ import estilos from "./ContainerSessao.module.css";
 
 const ContainerSessao = ({ children }) => {
     return (
-        <section className={estilos.Container} >{children}</section>
+        <section className={`${estilos.Container} aparecer`} >{children}</section>
     );
 };
 

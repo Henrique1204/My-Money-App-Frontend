@@ -54,7 +54,7 @@
 
 .subMenu.ativo ul {
     max-height: 400px;
-    animation: crescer 0.3s forwards;
+    animation: crescer 0.3s ease-in forwards;
     opacity: 1;
 }
 
