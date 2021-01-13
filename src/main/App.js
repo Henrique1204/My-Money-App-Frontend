@@ -21,11 +21,11 @@ const App = () => {
         <main>
           <SideBar isAberto={isMenuAberto} setIsAberto={setIsMenuAberto} />
 
-          <section className="conteudo">
+          <div className="conteudo">
             <Rotas />
 
             <Footer />
-          </section>
+          </div>
         </main>
       </div>
     </BrowserRouter>

@@ -1,0 +1,11 @@
+.Titulo {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.Titulo small {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: normal;
+    color: #556;
+}
