@@ -2,7 +2,7 @@ import React from "react";
 // Importando o estilo do componente.
 import estilos from "./Logo.module.css";
 // Importando componentes da interface.
-import Icon from "../../Util/Icon.js";
+import Icon from "../Util/Icon.js";
 
 const Logo = ({ isAberto }) => {
     return (

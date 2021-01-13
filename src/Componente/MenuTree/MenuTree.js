@@ -2,7 +2,7 @@ import React from "react";
 // Importando estilo do componente.
 import estilos from "./MenuTree.module.css";
 // Importando componentes da interface.
-import Icon from "../../Util/Icon.js";
+import Icon from "../Util/Icon.js";
 
 const MenuTree = ({ icon, titulo, children }) => {
     const [isAtivo, setIsAtivo] = React.useState(false);
