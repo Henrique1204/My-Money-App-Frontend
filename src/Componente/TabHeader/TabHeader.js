@@ -1,11 +1,25 @@
 import React from "react";
+// Importando estilos do componente.
+import estilos from "./TabHeader.module.css";
 // Importando componentes da interface.
 import Icon from "../Util/Icon.js";
+// Importando utilitários do Redux.
+import { useDispatch, useSelector } from "react-redux";
+// Importando actions do reducer.
+import { trocarTab } from "../../store/tabs.js";
 
-const TabHeader = ({ icon, legenda }) => {
+const TabHeader = ({ alvo, icon, legenda }) => {
+    const { tab } = useSelector((state) => state.tabs);
+    const dispatch = useDispatch();
+
     return (
         <li>
-            <button><Icon nome={icon} />{legenda}</button>
+            <button
+                onClick={() => dispatch(trocarTab(alvo))}
+                className={`${estilos.Tab} ${(tab === alvo) ? estilos.selecionada : ""}`}
+            >
+                <Icon nome={icon} />{legenda}
+            </button>
         </li>
     );
 };

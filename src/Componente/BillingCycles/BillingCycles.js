@@ -14,10 +14,10 @@ const BillingCycles = () => {
 
             <Tabs>
                 <TabsHeader>
-                    <TabHeader icon="bars" legenda="Lista" />
-                    <TabHeader icon="plus" legenda="Incluir" />
-                    <TabHeader icon="pencil" legenda="Alterar" />
-                    <TabHeader icon="trash-o" legenda="Excluir" />
+                    <TabHeader alvo="tabLista" icon="bars" legenda="Lista" />
+                    <TabHeader alvo="tabIncluir" icon="plus" legenda="Incluir" />
+                    <TabHeader alvo="tabAlterar" icon="pencil" legenda="Alterar" />
+                    <TabHeader alvo="tabExcluir" icon="trash-o" legenda="Excluir" />
                 </TabsHeader>
 
                 <TabsContent>

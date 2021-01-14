@@ -1,0 +1,20 @@
+.Tab {
+    padding: 0.5rem;
+    border-radius: 2px;
+    border: none;
+    font-size: 1rem;
+    background-color: #F4F4F4;
+    box-shadow: 0 0 1px 0 #666;
+    display: block;
+    cursor: pointer;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.Tab:hover, .selecionada {
+    box-shadow: 0 0 1px 0 #666, inset 0 3px 0 #0C91E8;
+}
+
+.Tab i {
+    margin-right: 0.5rem;
+}
