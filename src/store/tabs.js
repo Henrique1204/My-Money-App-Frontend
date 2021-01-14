@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const slice = createSlice({
     name: "tabs",
     initialState: {
-        tab: "tabLista",
+        tab: null,
     },
     reducers: {
         trocarTab(state, action) {

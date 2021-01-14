@@ -7,8 +7,17 @@ import TabsHeader from "../TabsHeader/TabsHeader.js";
 import TabHeader from "../TabHeader/TabHeader.js";
 import TabsContent from "../TabsContent/TabsContent.js";
 import TabContent from "../TabContent/TabContent.js";
+// Importando utilitários do Redux.
+import { useDispatch } from "react-redux";
+import { trocarTab } from "../../store/tabs.js";
 
 const BillingCycles = () => {
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(trocarTab("tabLista"));
+    }, [dispatch]);
+
     return (
         <ContainerSessao>
             <TituloSessao titulo="Ciclos de pagamentos" subtitulo="Cadastro" />
