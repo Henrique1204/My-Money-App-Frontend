@@ -1,0 +1,22 @@
+.Loading {
+    width: 100%;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+.Loading::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 4px solid #BFBFBF;
+    border-top-color: #0C91E8;
+    border-radius: 50%;
+    display: block;
+    animation: girar 1s ease infinite;
+}

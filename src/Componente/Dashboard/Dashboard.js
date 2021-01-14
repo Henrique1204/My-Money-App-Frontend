@@ -5,18 +5,21 @@ import estilos from "./Dashboard.module.css";
 import ContainerSessao from "../ContainerSessao/ContainerSessao.js";
 import TituloSessao from "../TituloSessao/TituloSessao.js";
 import Card from "../Card/Card.js";
+import Loading from "../Util/Loading/Loading.js";
 // Importando utilitários do redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions do reducer.
 import { fetchSummary } from "../../store/summary.js";
 
 const Dashboard = () => {
-    const { dados } = useSelector((state) => state.summary);
+    const { dados, loading } = useSelector((state) => state.summary);
     const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(fetchSummary());
     }, [dispatch]);
+
+    if (loading) return <Loading />;
 
     return (
         <ContainerSessao>
