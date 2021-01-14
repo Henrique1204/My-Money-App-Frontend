@@ -9,13 +9,14 @@ import TabsContent from "../TabsContent/TabsContent.js";
 import TabContent from "../TabContent/TabContent.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
-import { trocarTab } from "../../store/tabs.js";
+import { trocarTab, filtrarTabs } from "../../store/tabs.js";
 
 const BillingCycles = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(trocarTab("tabLista"));
+        dispatch(filtrarTabs("tabLista", "tabIncluir"));
     }, [dispatch]);
 
     return (

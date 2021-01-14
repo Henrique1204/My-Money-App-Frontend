@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { trocarTab } from "../../store/tabs.js";
 
 const TabHeader = ({ alvo, icon, legenda }) => {
-    const { tab } = useSelector((state) => state.tabs);
+    const { tab, tabsVisiveis } = useSelector((state) => state.tabs);
     const dispatch = useDispatch();
+
+    if (!tabsVisiveis[alvo]) return null;
 
     return (
         <li>
