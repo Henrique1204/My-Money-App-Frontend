@@ -9,7 +9,7 @@ const Menu = () => {
             <ul>
                 <MenuItem rota="/" icon="dashboard" conteudo="Dashboard" />
                 <MenuTree icon="edit" titulo="Cadastro" >
-                    <MenuItem rota="/billingCycles" icon="usd" conteudo="Ciclos de pagamento" />
+                    <MenuItem rota="/cicloPagamentos" icon="usd" conteudo="Ciclos de pagamento" />
                 </MenuTree>
             </ul>
         </nav>
