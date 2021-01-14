@@ -20,7 +20,6 @@ export const { trocarTab, mostrarTabs } = slice.actions;
 
 export const  filtrarTabs =(...ids) => (dispatch) => {
     const filtro = ids.reduce((ant, atual) => ({ ...ant, [atual]: true }), {});
-    console.log(filtro);
     dispatch(mostrarTabs(filtro));
 }
 

@@ -7,6 +7,7 @@ import TabsHeader from "../TabsHeader/TabsHeader.js";
 import TabHeader from "../TabHeader/TabHeader.js";
 import TabsContent from "../TabsContent/TabsContent.js";
 import TabContent from "../TabContent/TabContent.js";
+import BillingCyclesList from "../BillingCyclesList/BillingCyclesList.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
 import { trocarTab, filtrarTabs } from "../../store/tabs.js";
@@ -32,7 +33,9 @@ const BillingCycles = () => {
                 </TabsHeader>
 
                 <TabsContent>
-                    <TabContent id="tabLista" ><h2>Lista</h2></TabContent>
+                    <TabContent id="tabLista" >
+                        <BillingCyclesList />
+                    </TabContent>
                     <TabContent id="tabIncluir" ><h2>Incluir</h2></TabContent>
                     <TabContent id="tabAlterar" ><h2>Alterar</h2></TabContent>
                     <TabContent id="tabExcluir" ><h2>Excluir</h2></TabContent>

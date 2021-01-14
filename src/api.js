@@ -8,7 +8,7 @@ export const GET_SUMMARY = () => ({
 });
 
 export const GET_LIST = () => ({
-    ulr: `${URL_BASE}/billingCycles`,
+    url: `${URL_BASE}/billingCycles`,
     options: {
         method: "GET"
     }

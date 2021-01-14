@@ -20,7 +20,7 @@ const Dashboard = () => {
         dispatch(fetchSummary());
     }, [dispatch]);
 
-    if (loading) return <Loading />;
+    if (loading) return <ContainerSessao><Loading /></ContainerSessao>;
 
     if (erro) {
         return (
