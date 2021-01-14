@@ -1,0 +1,7 @@
+.TabContent {
+    display: none;
+}
+
+.selecionado {
+    display: block;
+}
