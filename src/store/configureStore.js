@@ -3,11 +3,12 @@ import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/
 // Importando reducers.
 import summary from "./summary.js";
 import tabs from "./tabs.js";
+import billingCyclesList from "./billingCyclesList.js";
 
 // Definindo os middlewares mantendo o que vem por padrão.
 const middleware = [...getDefaultMiddleware()];
 // Combinando reducers para criar o reducer da aplicação.
-const reducer = combineReducers({ summary, tabs });
+const reducer = combineReducers({ summary, tabs, billingCyclesList });
 
 // Criando a store passando o reducer e os middlewares.
 const store = configureStore({ reducer, middleware });

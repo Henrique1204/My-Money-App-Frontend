@@ -6,3 +6,10 @@ export const GET_SUMMARY = () => ({
         method: "GET"
     }
 });
+
+export const GET_LIST = () => ({
+    ulr: `${URL_BASE}/billingCycles`,
+    options: {
+        method: "GET"
+    }
+});
