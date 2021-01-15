@@ -24,3 +24,14 @@ export const POST_LIST = (body) => ({
         body: JSON.stringify(body)
     }
 });
+
+export const PUT_LIST = (body, id) => ({
+    url: `${URL_BASE}/billingCycles/${id}`,
+    options: {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    }
+});

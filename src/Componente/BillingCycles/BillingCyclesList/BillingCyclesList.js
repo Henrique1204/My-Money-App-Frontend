@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Importando actions do reducer.
 import { fetchList } from "../../../store/billingCyclesList.js";
 import { mostrarTabAlterar } from "../../../store/tabs.js";
+import { preencherDados } from "../../../store/form";
 
 const BillingCyclesList = () => {
     const { dados, loading, erro } = useSelector((state) => state.billingCyclesList);
@@ -43,7 +44,10 @@ const BillingCyclesList = () => {
                             <td>
                                 <button
                                     className={`${estilos.btn} ${estilos.btnWarning}`}
-                                    onClick={() => dispatch(mostrarTabAlterar())}
+                                    onClick={() => {
+                                        dispatch(mostrarTabAlterar());
+                                        dispatch(preencherDados({_id, name, month, year}));
+                                    }}
                                 >
                                     <Icon nome="pencil" />
                                 </button>

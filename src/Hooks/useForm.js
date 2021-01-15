@@ -15,8 +15,8 @@ const tipos = {
     }
 };
 
-const useForm = (tipo, intervalo) => {
-    const [valor, setValor] = React.useState("");
+const useForm = (valorInicial, tipo, intervalo) => {
+    const [valor, setValor] = React.useState((valorInicial) ? valorInicial : "");
     const [erro, setErro] = React.useState(null);
 
     function validar(valor) {

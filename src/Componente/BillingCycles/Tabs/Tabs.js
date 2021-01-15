@@ -27,7 +27,7 @@ const Tabs = () => {
                     <BillingCyclesForm method="POST" />
                 </TabContent>
                 <TabContent id="tabAlterar" >
-                    <BillingCyclesForm metho="PUT" />
+                    <BillingCyclesForm method="PUT" />
                 </TabContent>
                 <TabContent id="tabExcluir" ><h2>Excluir</h2></TabContent>
             </TabsContent>
