@@ -6,7 +6,7 @@ import Tabs from "../Tabs/Tabs.js";
 import TabsHeader from "../TabsHeader/TabsHeader.js";
 import TabHeader from "../TabHeader/TabHeader.js";
 import TabsContent from "../TabsContent/TabsContent.js";
-import TabContent from "../TabContent/TabContent.js";
+import TabContent from "../TabContent.js";
 import BillingCyclesList from "../BillingCyclesList/BillingCyclesList.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";

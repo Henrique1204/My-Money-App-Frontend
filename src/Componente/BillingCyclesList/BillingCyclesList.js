@@ -17,17 +17,13 @@ const BillingCyclesList = () => {
         dispatch(fetchList());
     }, [dispatch]);
 
-    React.useEffect(() => {
-        console.log(dados);
-    }, [dados]);
-
     if (loading) return <div className={estilos.containerFeedBack}><Loading /></div>;
 
     if (erro) return <div className={estilos.containerFeedBack}><Erro msg={erro} /></div>;
 
     if (dados) {
         return (
-            <table className={estilos.BillingCyclesList}>
+            <table className={`${estilos.BillingCyclesList} aparecer`}>
                 <thead>
                     <tr>
                         <th>Nome</th>

@@ -82,7 +82,7 @@ main {
 @keyframes aparecer {
     from {
         opacity: 0;
-        transform: translateX(100px);
+        transform: translateX(2rem);
     } to {
         opacity: initial;
         transform: initial;
