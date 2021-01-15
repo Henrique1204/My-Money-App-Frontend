@@ -17,11 +17,12 @@ const useFetch = () => {
             json = await response.json();
 
             if (response.ok === false) throw new Error(json.message);
+
+            setDados(json);
         } catch(erro) {
-            json = null;
+            setDados(null);
             setErro(erro.message);
         } finally {
-            setDados(json);
             setLoading(false);
             return { response, json };
         }

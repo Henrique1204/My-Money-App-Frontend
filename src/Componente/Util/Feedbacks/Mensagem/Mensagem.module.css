@@ -1,0 +1,74 @@
+@keyframes desaparecer {
+    from {
+        opacity: initial;
+    } to {
+        opacity: 0;
+    }
+}
+
+.Mensagem {
+    width: 20rem;
+    padding: 1rem 1rem 1rem 4.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    color: #EEE;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    animation: desaparecer 2.9s 1s ease-out forwards;
+}
+
+.Mensagem.erro {
+    background-color: #F76;
+}
+
+.Mensagem.sucesso {
+    background-color: #7C6;
+}
+
+.Mensagem > i {
+    font-size: 2.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.Mensagem h6 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.Mensagem small {
+    margin-top: 4px;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    display: block;
+}
+
+@keyframes moverEsquerda {
+    from {
+        transform: initial;
+    } to {
+        transform: translateX(-100%);
+    }
+}
+
+.animacao {
+    width: 100%;
+    height: 5px;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    animation: moverEsquerda 4s ease forwards;
+}
+
+.Mensagem.erro .animacao{
+    background-color: #A22;
+}
+
+.Mensagem.sucesso .animacao{
+    background-color: #191;
+}

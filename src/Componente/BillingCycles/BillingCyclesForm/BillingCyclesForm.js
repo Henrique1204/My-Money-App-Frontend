@@ -3,6 +3,7 @@ import React from "react";
 import estilos from "./BillingCyclesForm.module.css";
 // Importando componente da interface.
 import InputForm from "../../Util/InputForm/InputForm.js";
+import Feedback from "../../Util/Feedbacks/Feedback.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
@@ -16,7 +17,10 @@ const BillingCyclesForm = ({ method }) => {
     const year = useForm("numero");
 
     // Estados do fetch.
-    const { erro, loading, request } = useFetch();
+    const { loading, request } = useFetch();
+
+    // Estados feedbacks.
+    const [feedbacks, setFeedbacks] = React.useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,18 +35,29 @@ const BillingCyclesForm = ({ method }) => {
         }
 
         if (config && name.validar() && month.validar() && year.validar()) {
-            await request(config.url, config.options);
+            const { response, json } = await request(config.url, config.options);
+
+            if (response?.ok) {
+                setFeedbacks([{ msg: "Dados enviados com sucesso!", status: "sucesso" }]);
+            } else {
+                const objs = json.errors.map((item) => ({ msg: item, status: "erro" }));
+                setFeedbacks(objs);
+            }
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className={estilos.form} >
-            <InputForm label="Nome:" name="name" type="text" {...name} />
-            <InputForm label="Mês:" name="month" type="text" {...month} />
-            <InputForm label="Ano:" name="year" type="text" {...year} />
+        <>
+            <form onSubmit={handleSubmit} className={estilos.form} >
+                <InputForm label="Nome:" name="name" type="text" {...name} />
+                <InputForm label="Mês:" name="month" type="text" {...month} />
+                <InputForm label="Ano:" name="year" type="text" {...year} />
 
-            <button type="submit" disabled={loading}>Submit</button>
-        </form>
+                <button type="submit" disabled={loading}>Submit</button>
+            </form>
+
+            <Feedback feedbacks={feedbacks} />
+        </>
     );
 };
 
