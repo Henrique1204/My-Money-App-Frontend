@@ -1,14 +1,19 @@
 import React from "react";
 // Importando estilo do componente.
 import estilos from "./BillingCyclesForm.module.css";
+// Importando componente da interface.
+import InputForm from "../../Util/InputForm/InputForm.js";
+// Importando hooks personalizados.
+import useForm from "../../../Hooks/useForm.js";
 // Importando configurações da API.
 import { POST_LIST } from "../../../api";
 
 const BillingCyclesForm = ({ method }) => {
     // Estados do formulário.
-    const [name, setName] = React.useState("");
-    const [month, setMonth] = React.useState("");
-    const [year, setYear] = React.useState("");
+    const name = useForm();
+    const month = useForm("numero");
+    const year = useForm("numero");
+
     // Estados do fetch.
     const [fetchConfig, setFetchConfig] = React.useState(null);
 
@@ -16,10 +21,14 @@ const BillingCyclesForm = ({ method }) => {
         e.preventDefault();
 
         if (method === "POST") {
-            setFetchConfig(POST_LIST({ name, month: Number(month), year: Number(year) }));
+            setFetchConfig(POST_LIST({
+                name: name.valor,
+                month: Number(month.valor),
+                year: Number(year.valor)
+            }));
         }
 
-        if (fetchConfig) {
+        if (fetchConfig && name.validar() && month.validar() && year.validar()) {
             try {
                 await fetch(fetchConfig.url, fetchConfig.options);
             } catch({message}) {
@@ -30,38 +39,9 @@ const BillingCyclesForm = ({ method }) => {
 
     return (
         <form onSubmit={handleSubmit} className={estilos.form} >
-            <div className={estilos.campo}>
-                <label htmlFor="name">Nome:</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={name}
-                    onChange={({ target }) => setName(target.value)}
-                />
-            </div>
-
-            <div className={estilos.campo}>
-                <label htmlFor="month">Mês:</label>
-                <input
-                    type="text"
-                    name="month"
-                    id="month"
-                    value={month}
-                    onChange={({ target }) => setMonth(target.value)}
-                />
-            </div>
-
-            <div className={estilos.campo}>
-                <label htmlFor="year">Ano:</label>
-                <input
-                    type="text"
-                    name="year"
-                    id="year"
-                    value={year}
-                    onChange={({ target }) => setYear(target.value)}
-                />
-            </div>
+            <InputForm label="Nome:" name="name" type="text" {...name} />
+            <InputForm label="Mês:" name="month" type="text" {...month} />
+            <InputForm label="Ano:" name="year" type="text" {...month} />
 
             <button type="submit">Submit</button>
         </form>
