@@ -16,3 +16,22 @@
     width: 100%;
     height: 10rem;
 }
+
+.btn {
+    padding: 0.5rem 0.6rem;
+    border-radius: 2px;
+    font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    outline: none;
+}
+
+.btn:hover, .btn:focus {
+    opacity: 0.8;
+}
+
+.btnWarning {
+    color: #F4F4F4;
+    background-color: #E71;
+}

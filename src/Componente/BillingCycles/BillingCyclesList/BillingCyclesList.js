@@ -4,10 +4,12 @@ import estilos from "./BillingCyclesList.module.css";
 // Importando componentes da interface.
 import Loading from "../../Util/Loading/Loading.js";
 import Erro from "../../Util/Erro/Erro.js";
+import Icon from "../../Util/Icon.js";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions do reducer.
 import { fetchList } from "../../../store/billingCyclesList.js";
+import { mostrarTabAlterar } from "../../../store/tabs.js";
 
 const BillingCyclesList = () => {
     const { dados, loading, erro } = useSelector((state) => state.billingCyclesList);
@@ -29,6 +31,7 @@ const BillingCyclesList = () => {
                         <th>Nome</th>
                         <th>Mês</th>
                         <th>Ano</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +40,14 @@ const BillingCyclesList = () => {
                             <td>{name}</td>
                             <td>{month}</td>
                             <td>{year}</td>
+                            <td>
+                                <button
+                                    className={`${estilos.btn} ${estilos.btnWarning}`}
+                                    onClick={() => dispatch(mostrarTabAlterar())}
+                                >
+                                    <Icon nome="pencil" />
+                                </button>
+                            </td>
                         </tr>
                     )) }
                 </tbody>

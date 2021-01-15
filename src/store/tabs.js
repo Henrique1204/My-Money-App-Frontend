@@ -18,9 +18,14 @@ const slice = createSlice({
 
 export const { trocarTab, mostrarTabs } = slice.actions;
 
-export const  filtrarTabs =(...ids) => (dispatch) => {
+export const  filtrarTabs = (...ids) => (dispatch) => {
     const filtro = ids.reduce((ant, atual) => ({ ...ant, [atual]: true }), {});
     dispatch(mostrarTabs(filtro));
-}
+};
+
+export const mostrarTabAlterar = () => (dispatch) => {
+    dispatch(trocarTab("tabAlterar"));
+    dispatch(filtrarTabs("tabAlterar"));
+};
 
 export default slice.reducer;
