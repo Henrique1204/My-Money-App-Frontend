@@ -29,7 +29,7 @@ const BillingCyclesForm = ({ method }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit} className={estilos.form} >
             <div className={estilos.campo}>
                 <label htmlFor="name">Nome:</label>
                 <input
