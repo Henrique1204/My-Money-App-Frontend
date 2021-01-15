@@ -13,3 +13,14 @@ export const GET_LIST = () => ({
         method: "GET"
     }
 });
+
+export const POST_LIST = (body) => ({
+    url: `${URL_BASE}/billingCycles`,
+    options: {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    }
+});

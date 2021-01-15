@@ -7,6 +7,7 @@ import TabHeader from "./TabsHeader/TabHeader/TabHeader.js";
 import TabsContent from "./TabsContent/TabsContent.js";
 import TabContent from "./TabsContent/TabContent.js";
 import BillingCyclesList from "../BillingCyclesList/BillingCyclesList.js";
+import BillingCyclesForm from "../BillingCyclesForm/BillingCyclesForm.js";
 
 const Tabs = () => {
     return (
@@ -22,7 +23,9 @@ const Tabs = () => {
                 <TabContent id="tabLista" >
                     <BillingCyclesList />
                 </TabContent>
-                <TabContent id="tabIncluir" ><h2>Incluir</h2></TabContent>
+                <TabContent id="tabIncluir" >
+                    <BillingCyclesForm method="POST" />
+                </TabContent>
                 <TabContent id="tabAlterar" ><h2>Alterar</h2></TabContent>
                 <TabContent id="tabExcluir" ><h2>Excluir</h2></TabContent>
             </TabsContent>
