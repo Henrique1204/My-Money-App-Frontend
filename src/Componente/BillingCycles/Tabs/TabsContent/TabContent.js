@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const TabContent = ({ id, children }) => {
     const { tab } = useSelector((state) => state.tabs);
 
-    if (tab === id) return <div id={id}>{children}</div>;
+    if (tab === id) return <div id={id} className="aparecer">{children}</div>;
 
     return null;
 };

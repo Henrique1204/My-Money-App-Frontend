@@ -23,7 +23,7 @@ const BillingCyclesList = () => {
 
     if (dados) {
         return (
-            <table className={`${estilos.BillingCyclesList} aparecer`}>
+            <table className={estilos.BillingCyclesList}>
                 <thead>
                     <tr>
                         <th>Nome</th>

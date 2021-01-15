@@ -5,6 +5,7 @@ import estilos from "./BillingCyclesForm.module.css";
 import InputForm from "../../Util/InputForm/InputForm.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
+import useFetch from "../../../Hooks/useFetch.js";
 // Importando configurações da API.
 import { POST_LIST } from "../../../api";
 
@@ -15,25 +16,22 @@ const BillingCyclesForm = ({ method }) => {
     const year = useForm("numero");
 
     // Estados do fetch.
-    const [fetchConfig, setFetchConfig] = React.useState(null);
+    const { erro, loading, request } = useFetch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let config;
 
         if (method === "POST") {
-            setFetchConfig(POST_LIST({
+            config = POST_LIST({
                 name: name.valor,
                 month: Number(month.valor),
                 year: Number(year.valor)
-            }));
+            });
         }
 
-        if (fetchConfig && name.validar() && month.validar() && year.validar()) {
-            try {
-                await fetch(fetchConfig.url, fetchConfig.options);
-            } catch({message}) {
-                console.log(message);
-            }
+        if (config && name.validar() && month.validar() && year.validar()) {
+            await request(config.url, config.options);
         }
     };
 
@@ -41,9 +39,9 @@ const BillingCyclesForm = ({ method }) => {
         <form onSubmit={handleSubmit} className={estilos.form} >
             <InputForm label="Nome:" name="name" type="text" {...name} />
             <InputForm label="Mês:" name="month" type="text" {...month} />
-            <InputForm label="Ano:" name="year" type="text" {...month} />
+            <InputForm label="Ano:" name="year" type="text" {...year} />
 
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={loading}>Submit</button>
         </form>
     );
 };
