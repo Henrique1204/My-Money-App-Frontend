@@ -29,7 +29,7 @@ const Feedback = () => {
             <div className={estilos.card}>
                 {
                     feedbacks?.map(({ msg, status }) => (
-                        <Mensagem msg={msg} status={status} />
+                        <Mensagem key={msg} msg={msg} status={status} />
                     ))
                 }
             </div>

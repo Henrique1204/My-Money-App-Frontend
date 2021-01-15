@@ -3,6 +3,7 @@ import React from "react";
 import ContainerSessao from "../Util/ContainerSessao/ContainerSessao.js";
 import TituloSessao from "../Util/TituloSessao/TituloSessao.js";
 import Tabs from "./Tabs/Tabs.js";
+import Feedback from "../Util/Feedbacks/Feedback.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
 import { trocarTab, filtrarTabs } from "../../store/tabs.js";
@@ -16,11 +17,15 @@ const BillingCycles = () => {
     }, [dispatch]);
 
     return (
-        <ContainerSessao>
-            <TituloSessao titulo="Ciclos de pagamentos" subtitulo="Cadastro" />
+        <>
+            <ContainerSessao>
+                <TituloSessao titulo="Ciclos de pagamentos" subtitulo="Cadastro" />
 
-            <Tabs />
-        </ContainerSessao>
+                <Tabs />
+            </ContainerSessao>
+
+            <Feedback />
+        </>
     );
 };
 

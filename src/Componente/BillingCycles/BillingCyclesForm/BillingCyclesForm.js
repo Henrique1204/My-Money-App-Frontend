@@ -3,7 +3,6 @@ import React from "react";
 import estilos from "./BillingCyclesForm.module.css";
 // Importando componente da interface.
 import InputForm from "../../Util/InputForm/InputForm.js";
-import Feedback from "../../Util/Feedbacks/Feedback.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
@@ -13,6 +12,7 @@ import { POST_LIST } from "../../../api";
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
 import { adicionarFeedbacks, atualizarTimer } from "../../../store/ui.js";
+import { trocarTab } from "../../../store/tabs.js";
 
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
@@ -21,8 +21,8 @@ const BillingCyclesForm = ({ method }) => {
 
     // Estados do formulário.
     const name = useForm();
-    const month = useForm("numero");
-    const year = useForm("numero");
+    const month = useForm("numero", { min: 1, max: 12 });
+    const year = useForm("numero", { min: 1970, max: 2070 });
 
     // Estados do fetch.
     const { loading, request } = useFetch();
@@ -41,33 +41,36 @@ const BillingCyclesForm = ({ method }) => {
 
         if (config && name.validar() && month.validar() && year.validar() && timer) {
             const { response, json } = await request(config.url, config.options);
+            let feedkback;
 
-            if (response?.ok) {
-                dispatch(adicionarFeedbacks([{
+            if (json?.errors) {
+                feedkback = json.errors.map((item) => ({ msg: item, status: "erro" }));
+            } else if (response?.ok) {
+                feedkback = [{
                     msg: "Dados enviados com sucesso!",
                     status: "sucesso"
-                }]));
+                }];
+                dispatch(trocarTab("tabLista"));
             } else {
-                const objs = json.errors.map((item) => ({ msg: item, status: "erro" }));
-                dispatch(adicionarFeedbacks(objs));
+                feedkback = [{
+                    msg: "Falha ao enviar os dados!",
+                    status: "erro"
+                }];
             }
 
+            dispatch(adicionarFeedbacks(feedkback));
             dispatch(atualizarTimer(false));
         }
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className={estilos.form} >
-                <InputForm label="Nome:" name="name" type="text" {...name} />
-                <InputForm label="Mês:" name="month" type="text" {...month} />
-                <InputForm label="Ano:" name="year" type="text" {...year} />
+        <form onSubmit={handleSubmit} className={estilos.form} >
+            <InputForm label="Nome:" name="name" type="text" {...name} />
+            <InputForm label="Mês:" name="month" type="text" {...month} />
+            <InputForm label="Ano:" name="year" type="text" {...year} />
 
-                <button type="submit" disabled={loading}>Submit</button>
-            </form>
-
-            <Feedback />
-        </>
+            <button type="submit" disabled={loading}>Submit</button>
+        </form>
     );
 };
 

@@ -13,9 +13,9 @@ const tipos = {
         regex: /^\d+$/,
         menssagem: "Utilize apenas números"
     }
-}
+};
 
-const useForm = (tipo) => {
+const useForm = (tipo, intervalo) => {
     const [valor, setValor] = React.useState("");
     const [erro, setErro] = React.useState(null);
 
@@ -29,6 +29,9 @@ const useForm = (tipo) => {
             return false;
         } else if (tipos[tipo] && !tipos[tipo].regex.test(valor)) {
             setErro(tipos[tipo].menssagem);
+            return false;
+        } else if (valor < intervalo?.min || valor > intervalo?.max) {
+            setErro(`O valor deve estar entre ${intervalo?.min} e ${intervalo?.max}`);
             return false;
         } else {
             setErro(null);
