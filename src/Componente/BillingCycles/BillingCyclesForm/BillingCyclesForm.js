@@ -9,8 +9,16 @@ import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
 // Importando configurações da API.
 import { POST_LIST } from "../../../api";
+// Importando utilitários do Redux.
+import { useDispatch, useSelector } from "react-redux";
+// Importando actions da store.
+import { adicionarFeedbacks, atualizarTimer } from "../../../store/ui.js";
 
 const BillingCyclesForm = ({ method }) => {
+    // Estados globais.
+    const { timer } = useSelector((state) => state.ui);
+    const dispatch = useDispatch();
+
     // Estados do formulário.
     const name = useForm();
     const month = useForm("numero");
@@ -18,9 +26,6 @@ const BillingCyclesForm = ({ method }) => {
 
     // Estados do fetch.
     const { loading, request } = useFetch();
-
-    // Estados feedbacks.
-    const [feedbacks, setFeedbacks] = React.useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,15 +39,20 @@ const BillingCyclesForm = ({ method }) => {
             });
         }
 
-        if (config && name.validar() && month.validar() && year.validar()) {
+        if (config && name.validar() && month.validar() && year.validar() && timer) {
             const { response, json } = await request(config.url, config.options);
 
             if (response?.ok) {
-                setFeedbacks([{ msg: "Dados enviados com sucesso!", status: "sucesso" }]);
+                dispatch(adicionarFeedbacks([{
+                    msg: "Dados enviados com sucesso!",
+                    status: "sucesso"
+                }]));
             } else {
                 const objs = json.errors.map((item) => ({ msg: item, status: "erro" }));
-                setFeedbacks(objs);
+                dispatch(adicionarFeedbacks(objs));
             }
+
+            dispatch(atualizarTimer(false));
         }
     };
 
@@ -56,7 +66,7 @@ const BillingCyclesForm = ({ method }) => {
                 <button type="submit" disabled={loading}>Submit</button>
             </form>
 
-            <Feedback feedbacks={feedbacks} />
+            <Feedback />
         </>
     );
 };

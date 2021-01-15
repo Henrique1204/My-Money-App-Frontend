@@ -15,7 +15,7 @@
     display: block;
     position: relative;
     overflow: hidden;
-    animation: desaparecer 2.9s 1s ease-out forwards;
+    animation: desaparecer 3s 1s ease-out forwards;
 }
 
 .Mensagem.erro {
