@@ -2,9 +2,9 @@ import React from "react";
 // Importando estilo do componente.
 import estilos from "./Dashboard.module.css";
 // Importando componentes da interface.
-import ContainerSessao from "../ContainerSessao/ContainerSessao.js";
-import TituloSessao from "../TituloSessao/TituloSessao.js";
-import Card from "../Card/Card.js";
+import ContainerSessao from "../Util/ContainerSessao/ContainerSessao.js";
+import TituloSessao from "../Util/TituloSessao/TituloSessao.js";
+import Card from "./Card/Card.js";
 import Loading from "../Util/Loading/Loading.js";
 import Erro from "../Util/Erro/Erro.js";
 // Importando utilitários do redux.

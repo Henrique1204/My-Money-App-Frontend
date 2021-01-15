@@ -6,4 +6,4 @@ const TituloSessao = ({ titulo, subtitulo }) => (
     <h1 className={estilos.Titulo}>{titulo} <small>{subtitulo}</small></h1>
 );
 
-export default TituloSessao
+export default TituloSessao;

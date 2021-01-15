@@ -2,12 +2,12 @@ import React from "react";
 // Importando estilos do componente.
 import estilos from "./BillingCyclesList.module.css";
 // Importando componentes da interface.
-import Loading from "../Util/Loading/Loading.js";
-import Erro from "../Util/Erro/Erro.js";
+import Loading from "../../Util/Loading/Loading.js";
+import Erro from "../../Util/Erro/Erro.js";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions do reducer.
-import { fetchList } from "../../store/billingCyclesList.js";
+import { fetchList } from "../../../store/billingCyclesList.js";
 
 const BillingCyclesList = () => {
     const { dados, loading, erro } = useSelector((state) => state.billingCyclesList);

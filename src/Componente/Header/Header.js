@@ -2,7 +2,7 @@ import React from "react";
 // Importando estilo do componente.
 import estilos from "./Header.module.css";
 // Importando componentes da interface.
-import Logo from "../Logo/Logo.js";
+import Logo from "./Logo/Logo.js";
 
 const Header = ({ isAberto, setIsAberto }) => {
     return (
