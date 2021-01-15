@@ -85,7 +85,27 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Mês:" name="month" type="text" {...month} />
             <InputForm label="Ano:" name="year" type="text" {...year} />
 
-            <button type="submit" disabled={loading}>Submit</button>
+            <div className={estilos.btnBox}>
+                <button
+                    type="submit"
+                    className={`${estilos.btn} ${estilos.btnSubmit}`}
+                    disabled={loading}
+                >Submit</button>
+
+                {
+                    method !== "POST" && (
+                        <button
+                            type="button"
+                            className={`${estilos.btn} ${estilos.btnCancelar}`}
+                            onClick={() => {
+                                dispatch(limparDados());
+                                dispatch(trocarTab("tabLista"));
+                                dispatch(filtrarTabs("tabLista", "tabIncluir"));
+                            }}
+                        >Cancelar</button>
+                    )
+                }
+            </div>
         </form>
     );
 };

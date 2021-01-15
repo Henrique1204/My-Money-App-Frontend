@@ -5,25 +5,45 @@
     gap: 1rem;
 }
 
-.form button {
+.btnBox {
+    grid-column: 1 / -1;
+    padding: 1rem 0 0;
+    border-top: 2px solid #DFDFDF;
+}
+
+.btn {
     max-width: 5rem;
     padding: 0.5rem;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
-    color: #F4F4F4;
-    background-color: #0C91E8;
     box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.25);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
-.form button:hover, .form button:focus {
+.btnSubmit {
+    color: #F4F4F4;
+    background-color: #0C91E8;
+}
+
+.btnSubmit:hover, .btnSubmit:focus {
     box-shadow: 0 0 0 3px #BEF, 0 0 0 4px #0C91E8;
     outline: none;
 }
 
-.form button:disabled {
+.btnSubmit:disabled {
     opacity: 0.5;
     cursor: wait;
+}
+
+.btnCancelar {
+    margin-left: 1rem;
+    color: #333;
+    background-color: #ddd;
+}
+
+.btnCancelar:hover, .btnCancelar:focus {
+    box-shadow: 0 0 0 3px #EEE, 0 0 0 4px #AAA;
+    outline: none;
 }
