@@ -1,8 +1,8 @@
 import React from "react";
 // Importando componentes da interface.
-import InputForm from "../../../Util/InputForm/InputForm.js";
+import InputForm from "../../Util/InputForm/InputForm.js";
 // Importando hooks personalizados.
-import useForm from "../../../../Hooks/useForm.js";
+import useForm from "../../../Hooks/useForm.js";
 
 const InputList = ({ useFormConfig, inputConfig, setState  }) => {
     const campo = useForm(...useFormConfig);

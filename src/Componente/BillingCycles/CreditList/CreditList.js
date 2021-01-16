@@ -1,10 +1,10 @@
 import React from "react";
 // Importando componentes da interface.
-import InputList from "./InputList/InputList.js";
+import InputList from "./InputList.js";
 // Importando utilitários do redux.
 import { useSelector } from "react-redux";
 
-const CreditList = () => {
+const CreditList = ({ method }) => {
     // Estados globais.
     const { dados } = useSelector((state) => state.form);
     // Estados locais.
@@ -12,6 +12,40 @@ const CreditList = () => {
     const [valueCredit, setValueCredit] = React.useState([]);
 
     const gerarCampos = (dados) => {
+        if (dados) {
+            return dados.credits.map((credit, i) => (
+                <tr key={i}>
+                    <td>
+                        <InputList
+                            useFormConfig={[credit.name]}
+
+                            inputConfig={{
+                                name: `name_credit_${i}`,
+                                type:"text",
+                                readonly: (method === "DELETE")
+                            }}
+
+                            setState={setNameCredit}
+                        />
+                    </td>
+
+                    <td>
+                        <InputList
+                            useFormConfig={[credit.value, "numero"]}
+
+                            inputConfig={{
+                                name:"value_credit",
+                                type:"text",
+                                readonly: (method === "DELETE")
+                            }}
+
+                            setState={setValueCredit}
+                        />
+                    </td>
+                </tr>
+            ))
+        }
+
         return (
             <tr>
                 <td>
@@ -60,7 +94,7 @@ const CreditList = () => {
                     </thead>
 
                     <tbody>
-                        {gerarCampos()}                        
+                        {gerarCampos(dados)}                        
                     </tbody>
                 </table>
             </fieldset>

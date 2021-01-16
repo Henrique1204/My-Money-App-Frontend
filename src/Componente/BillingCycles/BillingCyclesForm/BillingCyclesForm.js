@@ -90,7 +90,7 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
             <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
         
-            <CreditList />
+            <CreditList method={method} />
 
             <div className={estilos.btnBox}>
                 <button
