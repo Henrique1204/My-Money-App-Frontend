@@ -5,6 +5,7 @@ import "./App.css";
 import Header from "../Componente/Header/Header.js";
 import SideBar from "../Componente/SideBar/SideBar.js";
 import Footer from "../Componente/Footer/Footer.js";
+import Feedback from "../Componente/Util/Feedbacks/Feedback.js";
 // Importando componente com as Rotas do site.
 import Rotas from "./Rotas.js";
 // Importando componentes do react-router-dom.
@@ -27,6 +28,8 @@ const App = () => {
             <Footer />
           </div>
         </main>
+  
+        <Feedback />
       </div>
     </BrowserRouter>
   );

@@ -29,7 +29,9 @@ const Tabs = () => {
                 <TabContent id="tabAlterar" >
                     <BillingCyclesForm method="PUT" />
                 </TabContent>
-                <TabContent id="tabExcluir" ><h2>Excluir</h2></TabContent>
+                <TabContent id="tabExcluir" >
+                    <BillingCyclesForm method="DELETE" />
+                </TabContent>
             </TabsContent>
         </div>
     );

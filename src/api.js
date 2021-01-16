@@ -14,7 +14,7 @@ export const GET_LIST = () => ({
     }
 });
 
-export const POST_LIST = (body) => ({
+export const POST_CYCLE = (body) => ({
     url: `${URL_BASE}/billingCycles`,
     options: {
         method: "POST",
@@ -25,7 +25,7 @@ export const POST_LIST = (body) => ({
     }
 });
 
-export const PUT_LIST = (body, id) => ({
+export const PUT_CYCLE = (body, id) => ({
     url: `${URL_BASE}/billingCycles/${id}`,
     options: {
         method: "PUT",
@@ -33,5 +33,12 @@ export const PUT_LIST = (body, id) => ({
             "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
+    }
+});
+
+export const DELETE_CYCLE = (id) => ({
+    url: `${URL_BASE}/billingCycles/${id}`,
+    options: {
+        method: "DELETE"
     }
 });

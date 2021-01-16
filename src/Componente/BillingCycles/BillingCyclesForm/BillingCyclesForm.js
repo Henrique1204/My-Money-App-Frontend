@@ -7,7 +7,7 @@ import InputForm from "../../Util/InputForm/InputForm.js";
 import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
 // Importando configurações da API.
-import { POST_LIST, PUT_LIST } from "../../../api";
+import { DELETE_CYCLE, POST_CYCLE, PUT_CYCLE } from "../../../api";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
@@ -24,12 +24,14 @@ const BillingCyclesForm = ({ method }) => {
     // Estados do formulário.
     const name = useForm(dados?.name);
     const month = useForm(dados?.month, "numero", { min: 1, max: 12 });
-    const year = useForm(dados?.year, "numero", { min: 1970, max: 2070 });
+    const year = useForm(dados?.year, "numero", { min: 1970, max: 2100 });
 
     // Estados do fetch.
     const { loading, request } = useFetch();
 
-    const handleSubmit = async (config) => {
+    const handleSubmit = async (e, config, sucesso) => {
+        e.preventDefault();
+
         if (name.validar() && month.validar() && year.validar() && timer) {
             const { response, json } = await request(config.url, config.options);
             let feedkback;
@@ -37,10 +39,7 @@ const BillingCyclesForm = ({ method }) => {
             if (json?.errors) {
                 feedkback = json.errors.map((item) => ({ msg: item, status: "erro" }));
             } else if (response?.ok) {
-                feedkback = [{
-                    msg: "Dados enviados com sucesso!",
-                    status: "sucesso"
-                }];
+                feedkback = [{ msg: sucesso, status: "sucesso" }];
 
                 dispatch(trocarTab("tabLista"));
                 dispatch(filtrarTabs("tabLista", "tabIncluir"));
@@ -57,40 +56,47 @@ const BillingCyclesForm = ({ method }) => {
     };
 
     const handlePost = (e) => {
-        e.preventDefault();
-
         const body = { name: name.valor, month: Number(month.valor), year: Number(year.valor) };
-        handleSubmit(POST_LIST(body));
+        handleSubmit(e, POST_CYCLE(body), "Dados adicionados com sucesso!");
     }
 
-    const handlePut = (e) => {
-        e.preventDefault();
-
+    const handlePut = async (e) => {
         const body = { name: name.valor, month: Number(month.valor), year: Number(year.valor) }
-        handleSubmit(PUT_LIST(body, dados._id));
+        await handleSubmit(e, PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
+        dispatch(limparDados());
+    }
+
+    const handleDelete = async (e) => {
+        await handleSubmit(e, DELETE_CYCLE(dados._id), "Dados removidos com sucesso!");
+        dispatch(limparDados());
     }
 
     const eventosForm = {
         POST: handlePost,
-        PUT: handlePut
+        PUT: handlePut,
+        DELETE: handleDelete
     };
 
-    React.useEffect(() => {
-        if (method === "POST") dispatch(limparDados());
-    }, [method, dispatch]);
+    const textoBtn = {
+        POST: "Enviar",
+        PUT: "Alterar",
+        DELETE: "Excluir"
+    }
 
     return (
         <form onSubmit={eventosForm[method]} className={estilos.form} >
-            <InputForm label="Nome:" name="name" type="text" {...name} />
-            <InputForm label="Mês:" name="month" type="text" {...month} />
-            <InputForm label="Ano:" name="year" type="text" {...year} />
+            <InputForm label="Nome:" name="name" type="text" readonly={method === "DELETE"} {...name} />
+            <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
+            <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
 
             <div className={estilos.btnBox}>
                 <button
                     type="submit"
                     className={`${estilos.btn} ${estilos.btnSubmit}`}
-                    disabled={loading}
-                >Submit</button>
+                    disabled={loading || !timer}
+                >
+                    {textoBtn[method]}
+                </button>
 
                 {
                     method !== "POST" && (

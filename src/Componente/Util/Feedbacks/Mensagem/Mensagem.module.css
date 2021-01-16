@@ -15,7 +15,7 @@
     display: block;
     position: relative;
     overflow: hidden;
-    animation: desaparecer 3s 1s ease-out forwards;
+    animation: desaparecer 2s 1s ease-out forwards;
 }
 
 .Mensagem.erro {
@@ -62,7 +62,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    animation: moverEsquerda 4s ease forwards;
+    animation: moverEsquerda 3s ease forwards;
 }
 
 .Mensagem.erro .animacao{

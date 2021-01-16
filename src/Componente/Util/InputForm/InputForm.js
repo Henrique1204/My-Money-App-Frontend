@@ -2,7 +2,7 @@ import React from "react";
 // Importando estilo do componente.
 import estilos from "./InputForm.module.css";
 
-const InputForm = ({label, type, name, valor, onChange, onBlur, erro}) => {
+const InputForm = ({ label, type, name, valor, onChange, onBlur, erro, readonly }) => {
     return (
         <div className={estilos.campo}>
             <label htmlFor={name}>{label}</label>
@@ -14,6 +14,7 @@ const InputForm = ({label, type, name, valor, onChange, onBlur, erro}) => {
                 value={valor}
                 onChange={onChange}
                 onBlur={onBlur}
+                readOnly={readonly}
             />
 
             <small className={estilos.erro} >{erro}</small>

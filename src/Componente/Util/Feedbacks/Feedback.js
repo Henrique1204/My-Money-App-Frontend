@@ -17,7 +17,7 @@ const Feedback = () => {
         const timeOut = setTimeout(() => {
             dispatch(atualizarTimer(true));
             dispatch(removerFeedbacks());
-        }, 3900);
+        }, 2900);
     
         return () => {
             clearTimeout(timeOut);

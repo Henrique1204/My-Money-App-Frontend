@@ -23,9 +23,9 @@ export const  filtrarTabs = (...ids) => (dispatch) => {
     dispatch(mostrarTabs(filtro));
 };
 
-export const mostrarTabAlterar = () => (dispatch) => {
-    dispatch(trocarTab("tabAlterar"));
-    dispatch(filtrarTabs("tabAlterar"));
+export const mostrarTabPersonalizada = (payload) => (dispatch) => {
+    dispatch(trocarTab(payload));
+    dispatch(filtrarTabs(payload));
 };
 
 export default slice.reducer;

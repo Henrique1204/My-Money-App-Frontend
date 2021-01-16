@@ -9,7 +9,7 @@ import Icon from "../../Util/Icon.js";
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions do reducer.
 import { fetchList } from "../../../store/billingCyclesList.js";
-import { mostrarTabAlterar } from "../../../store/tabs.js";
+import { mostrarTabPersonalizada } from "../../../store/tabs.js";
 import { preencherDados } from "../../../store/form";
 
 const BillingCyclesList = () => {
@@ -43,13 +43,23 @@ const BillingCyclesList = () => {
                             <td>{year}</td>
                             <td>
                                 <button
-                                    className={`${estilos.btn} ${estilos.btnWarning}`}
+                                    className={`${estilos.btn} ${estilos.btnAlterar}`}
                                     onClick={() => {
-                                        dispatch(mostrarTabAlterar());
+                                        dispatch(mostrarTabPersonalizada("tabAlterar"));
                                         dispatch(preencherDados({_id, name, month, year}));
                                     }}
                                 >
                                     <Icon nome="pencil" />
+                                </button>
+
+                                <button
+                                    className={`${estilos.btn} ${estilos.btnExcluir}`}
+                                    onClick={() => {
+                                        dispatch(mostrarTabPersonalizada("tabExcluir"));
+                                        dispatch(preencherDados({_id, name, month, year}));
+                                    }}
+                                >
+                                    <Icon nome="trash-o" />
                                 </button>
                             </td>
                         </tr>

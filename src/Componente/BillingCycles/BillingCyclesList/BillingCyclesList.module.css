@@ -19,19 +19,22 @@
 
 .btn {
     padding: 0.5rem 0.6rem;
-    border-radius: 2px;
+    border-radius: 4px;
     font-size: 0.875rem;
     border: none;
+    color: #F4F4F4;
     cursor: pointer;
     transition: opacity 0.3s ease;
     outline: none;
+}
+
+.btn + .btn {
+    margin-left: 0.5rem;
 }
 
 .btn:hover, .btn:focus {
     opacity: 0.8;
 }
 
-.btnWarning {
-    color: #F4F4F4;
-    background-color: #E71;
-}
+.btnAlterar { background-color: #E71; }
+.btnExcluir { background-color: #D43; }
