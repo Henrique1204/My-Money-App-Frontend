@@ -8,19 +8,19 @@ const InputList = ({ useFormConfig, inputConfig, setState  }) => {
     const campo = useForm(...useFormConfig);
 
     const onChange = (e) => {
-        setState((lista) => {
-            const indice = lista.indexOf(campo.valor);
+        campo.onChange(e);
 
-            if (indice !== -1) {
-                lista[indice] = e.target.value;
-                console.log(lista);
+        setState((lista) => {
+            console.log(lista);
+            const indice = lista.indexOf(lista.find((item) => item.name === inputConfig.name));
+
+            if (indice === -1) {
+                return [...lista, { name: inputConfig.name, value: campo.valor }];
+            } else {
+                lista[indice].value = campo.valor;
                 return lista;
             }
-
-            return [...lista, e.target.value];
         });
-
-        campo.onChange(e);
     }
 
     return <InputForm label="" {...inputConfig} {...campo} onChange={onChange} />

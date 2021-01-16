@@ -10,14 +10,22 @@ const CreditList = ({ method }) => {
     // Estados locais.
     const [nameCredit, setNameCredit] = React.useState([]);
     const [valueCredit, setValueCredit] = React.useState([]);
+    const [linhas, setLinhas] = React.useState(1);
 
-    const gerarCampos = (dados) => {
-        if (dados) {
-            return dados.credits.map((credit, i) => (
+    const gerarCampos = (credits) => {
+        const numeroLinhas = credits?.length || linhas;
+
+        let elementos = [];
+
+        for (let i = 0; i < numeroLinhas; i++) {
+            const valorName = (credits && credits[i].name) || "";
+            const valorValue = (credits && credits[i].value) || "";
+
+            elementos.push(
                 <tr key={i}>
                     <td>
                         <InputList
-                            useFormConfig={[credit.name]}
+                            useFormConfig={[valorName]}
 
                             inputConfig={{
                                 name: `name_credit_${i}`,
@@ -31,11 +39,11 @@ const CreditList = ({ method }) => {
 
                     <td>
                         <InputList
-                            useFormConfig={[credit.value, "numero"]}
+                            useFormConfig={[valorValue, "numero"]}
 
                             inputConfig={{
-                                name:"value_credit",
-                                type:"text",
+                                name: `value_credit_${i}`,
+                                type: "text",
                                 readonly: (method === "DELETE")
                             }}
 
@@ -43,40 +51,10 @@ const CreditList = ({ method }) => {
                         />
                     </td>
                 </tr>
-            ))
+            );
         }
 
-        return (
-            <tr>
-                <td>
-                    <InputList
-                        useFormConfig={[""]}
-
-                        inputConfig={{
-                            name:"name_credit",
-                            type:"text",
-                            readonly: false
-                        }}
-
-                        setState={setNameCredit}
-                    />
-                </td>
-
-                <td>
-                    <InputList
-                        useFormConfig={["", "number"]}
-
-                        inputConfig={{
-                            name:"value_credit",
-                            type:"text",
-                            readonly: false
-                        }}
-
-                        setState={setValueCredit}
-                    />
-                </td>
-            </tr>
-        )
+        return elementos;
     }
 
     return (
@@ -94,7 +72,7 @@ const CreditList = ({ method }) => {
                     </thead>
 
                     <tbody>
-                        {gerarCampos(dados)}                        
+                        {gerarCampos(dados?.credits).map((campo) => campo)}
                     </tbody>
                 </table>
             </fieldset>
