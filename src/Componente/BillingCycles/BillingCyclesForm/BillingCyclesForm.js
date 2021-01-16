@@ -3,6 +3,7 @@ import React from "react";
 import estilos from "./BillingCyclesForm.module.css";
 // Importando componente da interface.
 import InputForm from "../../Util/InputForm/InputForm.js";
+import CreditList from "../CreditList/CreditList.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
@@ -88,6 +89,8 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Nome:" name="name" type="text" readonly={method === "DELETE"} {...name} />
             <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
             <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
+        
+            <CreditList />
 
             <div className={estilos.btnBox}>
                 <button

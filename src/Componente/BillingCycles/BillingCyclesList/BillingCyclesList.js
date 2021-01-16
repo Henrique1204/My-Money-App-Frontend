@@ -36,7 +36,7 @@ const BillingCyclesList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    { dados.map(({_id, name, month, year}) => (
+                    { dados.map(({_id, name, month, year, credits}) => (
                         <tr key={_id}>
                             <td>{name}</td>
                             <td>{month}</td>
@@ -46,7 +46,7 @@ const BillingCyclesList = () => {
                                     className={`${estilos.btn} ${estilos.btnAlterar}`}
                                     onClick={() => {
                                         dispatch(mostrarTabPersonalizada("tabAlterar"));
-                                        dispatch(preencherDados({_id, name, month, year}));
+                                        dispatch(preencherDados({_id, name, month, year, credits}));
                                     }}
                                 >
                                     <Icon nome="pencil" />
@@ -56,7 +56,7 @@ const BillingCyclesList = () => {
                                     className={`${estilos.btn} ${estilos.btnExcluir}`}
                                     onClick={() => {
                                         dispatch(mostrarTabPersonalizada("tabExcluir"));
-                                        dispatch(preencherDados({_id, name, month, year}));
+                                        dispatch(preencherDados({_id, name, month, year, credits}));
                                     }}
                                 >
                                     <Icon nome="trash-o" />
