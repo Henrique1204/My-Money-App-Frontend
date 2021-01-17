@@ -3,12 +3,11 @@ import React from "react";
 import estilos from "./InputRow.module.css";
 // Importando componentes da interface.
 import InputList from "../InputList.js";
-import Icon from "../../../Util/Icon.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
 // Importando actions da store.
 import { alterarLinhas } from "../../../../store/form.js";
-
+import AcoesBtn from "../AcoesBtn/AcoesBtn";
 
 const InputRow = ({ valorName, valorValue, readonly, indice }) => {
     // Estados globais.
@@ -45,15 +44,11 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
             </td>
 
             <td>
-                    { !readonly && (
-                        <button
-                            type="button"
-                            className={`${estilos.btn} ${estilos.btnAdd}`}
-                            onClick={() => dispatch(alterarLinhas())}
-                        >
-                            <Icon nome="plus" />
-                        </button>
-                    )}
+                { !readonly && (
+                    <AcoesBtn click={() => dispatch(alterarLinhas())} icon="plus" estilo="add" />
+                )}
+
+                <AcoesBtn icon="clone" estilo="duplicar" />
             </td>
         </tr>
     );

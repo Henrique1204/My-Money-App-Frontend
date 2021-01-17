@@ -1,0 +1,22 @@
+.btn {
+    padding: 0.5rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 1.125rem;
+    font-size: 0.875rem;
+    border: none;
+    color: #F4F4F4;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    outline: none;
+}
+
+.btn + .btn {
+    margin-left: 0.5rem;
+}
+
+.btn:hover, .btn:focus {
+    opacity: 0.8;
+}
+
+.add { background-color: #4A4; }
+.duplicar { background-color: #EA1; }
