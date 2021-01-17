@@ -1,0 +1,19 @@
+.CreditList {
+    border: 1px solid #CCC;
+    color: #666;
+    grid-column: 1 / -1;
+}
+
+.CreditList legend {
+    font-weight: bold;
+}
+
+.CreditList table {
+    width: 100%;
+    text-align: left;
+}
+
+.CreditList tbody td{
+    height: 60px;
+    padding-right: 2rem;
+}

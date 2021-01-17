@@ -1,4 +1,6 @@
 import React from "react";
+// Importando estilos do componente.
+import estilos from "./CreditList.module.css";
 // Importando componentes da interface.
 import InputList from "./InputList.js";
 // Importando utilitários do redux.
@@ -56,25 +58,23 @@ const CreditList = ({ method, setStates }) => {
     }
 
     return (
-        <div>
-            <fieldset>
-                <legend>Créditos</legend>
+        <fieldset className={estilos.CreditList}>
+            <legend>Créditos</legend>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        {gerarCampos(dados?.credits).map((campo) => campo)}
-                    </tbody>
-                </table>
-            </fieldset>
-        </div>
+                <tbody>
+                    {gerarCampos(dados?.credits).map((campo) => campo)}
+                </tbody>
+            </table>
+        </fieldset>
     );
 };
 
