@@ -4,12 +4,10 @@ import InputList from "./InputList.js";
 // Importando utilitários do redux.
 import { useSelector } from "react-redux";
 
-const CreditList = ({ method }) => {
+const CreditList = ({ method, setStates }) => {
     // Estados globais.
     const { dados } = useSelector((state) => state.form);
     // Estados locais.
-    const [nameCredit, setNameCredit] = React.useState([]);
-    const [valueCredit, setValueCredit] = React.useState([]);
     const [linhas, setLinhas] = React.useState(1);
 
     const gerarCampos = (credits) => {
@@ -18,8 +16,8 @@ const CreditList = ({ method }) => {
         let elementos = [];
 
         for (let i = 0; i < numeroLinhas; i++) {
-            const valorName = (credits && credits[i].name) || "";
-            const valorValue = (credits && credits[i].value) || "";
+            const valorName = (credits?.length && credits[i].name) || "";
+            const valorValue = (credits?.length && credits[i].value) || "";
 
             elementos.push(
                 <tr key={i}>
@@ -33,7 +31,7 @@ const CreditList = ({ method }) => {
                                 readonly: (method === "DELETE")
                             }}
 
-                            setState={setNameCredit}
+                            setState={setStates.name}
                         />
                     </td>
 
@@ -47,7 +45,7 @@ const CreditList = ({ method }) => {
                                 readonly: (method === "DELETE")
                             }}
 
-                            setState={setValueCredit}
+                            setState={setStates.value}
                         />
                     </td>
                 </tr>

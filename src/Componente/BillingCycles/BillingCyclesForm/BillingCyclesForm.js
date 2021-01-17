@@ -16,6 +16,17 @@ import { adicionarFeedbacks, atualizarTimer } from "../../../store/ui.js";
 import { filtrarTabs, trocarTab } from "../../../store/tabs.js";
 import { limparDados } from "../../../store/form.js";
 
+const gerarJsonCreditos = (listaName, listaValue) => {
+    const listaCreditos = listaName.map(({ name, value }) => {
+        const id = name.substring(name.lastIndexOf("_")+1);
+        const valueCorrespondente = listaValue.find((item) => item.name === `value_credit_${id}`);
+
+        return { name: value, value: valueCorrespondente.value };
+    });
+
+    return listaCreditos;
+}
+
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
     const { timer } = useSelector((state) => state.ui);
@@ -26,6 +37,8 @@ const BillingCyclesForm = ({ method }) => {
     const name = useForm(dados?.name);
     const month = useForm(dados?.month, "numero", { min: 1, max: 12 });
     const year = useForm(dados?.year, "numero", { min: 1970, max: 2100 });
+    const [nameCredit, setNameCredit] = React.useState([]);
+    const [valueCredit, setValueCredit] = React.useState([]);
 
     // Estados do fetch.
     const { loading, request } = useFetch();
@@ -57,12 +70,28 @@ const BillingCyclesForm = ({ method }) => {
     };
 
     const handlePost = (e) => {
-        const body = { name: name.valor, month: Number(month.valor), year: Number(year.valor) };
+        const credits = gerarJsonCreditos(nameCredit, valueCredit);
+
+        const body = {
+            name: name.valor,
+            month: Number(month.valor),
+            year: Number(year.valor),
+            credits
+        };
+
         handleSubmit(e, POST_CYCLE(body), "Dados adicionados com sucesso!");
     }
 
     const handlePut = async (e) => {
-        const body = { name: name.valor, month: Number(month.valor), year: Number(year.valor) }
+        const credits = gerarJsonCreditos(nameCredit, valueCredit);
+
+        const body = {
+            name: name.valor,
+            month: Number(month.valor),
+            year: Number(year.valor),
+            credits
+        };
+
         await handleSubmit(e, PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
         dispatch(limparDados());
     }
@@ -90,7 +119,7 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
             <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
         
-            <CreditList method={method} />
+            <CreditList method={method} setStates={{ name: setNameCredit, value: setValueCredit }} />
 
             <div className={estilos.btnBox}>
                 <button
