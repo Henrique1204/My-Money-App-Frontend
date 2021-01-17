@@ -2,12 +2,10 @@ import React from "react";
 // Importando estilos do componente.
 import estilos from "./CreditList.module.css";
 // Importando componentes da interface.
-import InputList from "./InputList.js";
-import Icon from "../../Util/Icon.js";
+import InputRow from "./InputRow/InputRow.js";
 // Importando utilitários do redux.
 import { useDispatch, useSelector } from "react-redux";
-// Importando actions da store.
-import { addLinhas } from "../../../store/form.js";
+import { alterarLinhas } from "../../../store/form";
 
 const CreditList = ({ method }) => {
     // Estados globais.
@@ -15,61 +13,30 @@ const CreditList = ({ method }) => {
     const dispatch = useDispatch();
 
     const gerarCampos = (credits) => {
-        const numeroLinhas = credits?.length || linhas;
-
         let elementos = [];
 
-        for (let i = 0; i < numeroLinhas; i++) {
-            const valorName = (credits?.length && credits[i].name) || "";
-            const valorValue = (credits?.length && credits[i].value) || "";
+        for (let i = 0; i < linhas; i++) {
+            const valorName = (credits?.length && credits[i] && credits[i].name) || "";
+            const valorValue = (credits?.length && credits[i] && credits[i].value) || "";
+            const readonly = method === "DELETE";
 
             elementos.push(
-                <tr key={i}>
-                    <td>
-                        <InputList
-                            useFormConfig={[valorName, ""]}
-
-                            inputConfig={{
-                                name: `name_credit_${i}`,
-                                type:"text",
-                                readonly: (method === "DELETE")
-                            }}
-
-                            type={"names"}
-                        />
-                    </td>
-
-                    <td>
-                        <InputList
-                            useFormConfig={[valorValue, "numero"]}
-
-                            inputConfig={{
-                                name: `value_credit_${i}`,
-                                type: "text",
-                                readonly: (method === "DELETE")
-                            }}
-
-                            type={"values"}
-                        />
-                    </td>
-
-                    <td>
-                            { method !== "DELETE" && (
-                                <button
-                                    type="button"
-                                    className={`${estilos.btn} ${estilos.btnAdd}`}
-                                    onClick={() => dispatch(addLinhas())}
-                                >
-                                    <Icon nome="plus" />
-                                </button>
-                            )}
-                    </td>
-                </tr>
+                <InputRow
+                    key={i}
+                    valorName={valorName}
+                    valorValue={valorValue}
+                    readonly={readonly}
+                    indice={i}
+                />
             );
         }
 
         return elementos;
     }
+
+    React.useEffect(() => {
+        dispatch(alterarLinhas(dados?.credits?.length || 1));
+    }, [dispatch, dados]);
 
     return (
         <fieldset className={estilos.CreditList}>

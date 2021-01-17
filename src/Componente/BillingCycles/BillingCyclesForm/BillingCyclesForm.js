@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
 import { adicionarFeedbacks, atualizarTimer } from "../../../store/ui.js";
 import { filtrarTabs, trocarTab } from "../../../store/tabs.js";
-import { limparDados } from "../../../store/form.js";
+import { limparDados, alterarLinhas } from "../../../store/form.js";
 
 const gerarJsonCreditos = (listaName, listaValue) => {
     const listaCreditos = listaName.map(({ name, value }) => {
@@ -110,6 +110,10 @@ const BillingCyclesForm = ({ method }) => {
         PUT: "Alterar",
         DELETE: "Excluir"
     }
+
+    React.useEffect(() => {
+        return () => dispatch(alterarLinhas(1));
+    }, [dispatch])
 
     return (
         <form onSubmit={eventosForm[method]} className={estilos.form} >

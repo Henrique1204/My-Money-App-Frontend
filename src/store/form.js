@@ -17,8 +17,8 @@ const slice = createSlice({
         limparDados(state) {
             state.dados = null;
         },
-        addLinhas(state) {
-            state.linhas++;
+        alterarLinhas(state, action) {
+            state.linhas = action.payload || state.linhas + 1;
         },
         addCredito(state, action) {
             const { type, name, valor } = action.payload;
@@ -39,6 +39,6 @@ const slice = createSlice({
     }
 });
 
-export const { preencherDados, limparDados, addCredito, addLinhas } = slice.actions; 
+export const { preencherDados, limparDados, addCredito, alterarLinhas } = slice.actions; 
 
 export default slice.reducer;
