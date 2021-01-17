@@ -3,32 +3,35 @@ import React from "react";
 import InputForm from "../../Util/InputForm/InputForm.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
+// Improtando utilitários do redux.
+import { useDispatch } from "react-redux";
+// Importando actions da store.
+import { addCredito } from "../../../store/form.js";
 
-const definirState = (valor, setState, useFormConfig, inputConfig ) => {
-    setState((lista) => {
-        const indice = lista.indexOf(lista.find((item) => item.name === inputConfig.name));
+const InputList = ({ useFormConfig, inputConfig, type  }) => {
+    // Estados globais.
+    const dispatch = useDispatch();
 
-        if (indice === -1) {
-            return [...lista, { name: inputConfig.name, value: valor }];
-        } else {
-            lista[indice].value = valor;
-            return lista;
-        }
-    });
-}
-
-const InputList = ({ useFormConfig, inputConfig, setState  }) => {
+    // Estados locais.
     const campo = useForm(...useFormConfig);
 
     const onChange = (e) => {
         campo.onChange(e);
 
-        definirState(e.target.value, setState, useFormConfig, inputConfig)
+        dispatch(addCredito({
+            type,
+            name: inputConfig.name,
+            valor: e.target.value
+        }));
     }
 
     React.useEffect(() => {
-        definirState(campo.valor, setState ,useFormConfig, inputConfig)
-    }, [campo, setState, useFormConfig, inputConfig]);
+        dispatch(addCredito({
+            type,
+            name: inputConfig.name,
+            valor: campo.valor
+        }));
+    }, [dispatch, type, inputConfig, campo]);
 
     return <InputForm label="" {...inputConfig} {...campo} onChange={onChange} />
 };

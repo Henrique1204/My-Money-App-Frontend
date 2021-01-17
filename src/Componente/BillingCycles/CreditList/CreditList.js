@@ -5,13 +5,14 @@ import estilos from "./CreditList.module.css";
 import InputList from "./InputList.js";
 import Icon from "../../Util/Icon.js";
 // Importando utilitários do redux.
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+// Importando actions da store.
+import { addLinhas } from "../../../store/form.js";
 
-const CreditList = ({ method, setStates }) => {
+const CreditList = ({ method }) => {
     // Estados globais.
-    const { dados } = useSelector((state) => state.form);
-    // Estados locais.
-    const [linhas, setLinhas] = React.useState(1);
+    const { dados, linhas } = useSelector((state) => state.form);
+    const dispatch = useDispatch();
 
     const gerarCampos = (credits) => {
         const numeroLinhas = credits?.length || linhas;
@@ -34,7 +35,7 @@ const CreditList = ({ method, setStates }) => {
                                 readonly: (method === "DELETE")
                             }}
 
-                            setState={setStates.name}
+                            type={"names"}
                         />
                     </td>
 
@@ -48,7 +49,7 @@ const CreditList = ({ method, setStates }) => {
                                 readonly: (method === "DELETE")
                             }}
 
-                            setState={setStates.value}
+                            type={"values"}
                         />
                     </td>
 
@@ -57,7 +58,7 @@ const CreditList = ({ method, setStates }) => {
                                 <button
                                     type="button"
                                     className={`${estilos.btn} ${estilos.btnAdd}`}
-                                    onClick={() => setLinhas((linha) => linha + 1)}
+                                    onClick={() => dispatch(addLinhas())}
                                 >
                                     <Icon nome="plus" />
                                 </button>

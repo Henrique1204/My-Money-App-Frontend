@@ -30,15 +30,13 @@ const gerarJsonCreditos = (listaName, listaValue) => {
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
     const { timer } = useSelector((state) => state.ui);
-    const { dados } = useSelector((state) => state.form);
+    const { dados, creditos } = useSelector((state) => state.form);
     const dispatch = useDispatch();
 
     // Estados do formulário.
     const name = useForm(dados?.name);
     const month = useForm(dados?.month, "numero", { min: 1, max: 12 });
     const year = useForm(dados?.year, "numero", { min: 1970, max: 2100 });
-    const [nameCredit, setNameCredit] = React.useState([]);
-    const [valueCredit, setValueCredit] = React.useState([]);
 
     // Estados do fetch.
     const { loading, request } = useFetch();
@@ -70,7 +68,7 @@ const BillingCyclesForm = ({ method }) => {
     };
 
     const handlePost = (e) => {
-        const credits = gerarJsonCreditos(nameCredit, valueCredit);
+        const credits = gerarJsonCreditos(creditos.names, creditos.values);
 
         const body = {
             name: name.valor,
@@ -83,7 +81,7 @@ const BillingCyclesForm = ({ method }) => {
     }
 
     const handlePut = async (e) => {
-        const credits = gerarJsonCreditos(nameCredit, valueCredit);
+        const credits = gerarJsonCreditos(creditos.names, creditos.values);
 
         const body = {
             name: name.valor,
@@ -119,7 +117,7 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
             <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
         
-            <CreditList method={method} setStates={{ name: setNameCredit, value: setValueCredit }} />
+            <CreditList method={method} />
 
             <div className={estilos.btnBox}>
                 <button
