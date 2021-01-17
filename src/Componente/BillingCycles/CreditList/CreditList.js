@@ -3,6 +3,7 @@ import React from "react";
 import estilos from "./CreditList.module.css";
 // Importando componentes da interface.
 import InputList from "./InputList.js";
+import Icon from "../../Util/Icon.js";
 // Importando utilitários do redux.
 import { useSelector } from "react-redux";
 
@@ -25,7 +26,7 @@ const CreditList = ({ method, setStates }) => {
                 <tr key={i}>
                     <td>
                         <InputList
-                            useFormConfig={[valorName]}
+                            useFormConfig={[valorName, ""]}
 
                             inputConfig={{
                                 name: `name_credit_${i}`,
@@ -49,6 +50,18 @@ const CreditList = ({ method, setStates }) => {
 
                             setState={setStates.value}
                         />
+                    </td>
+
+                    <td>
+                            { method !== "DELETE" && (
+                                <button
+                                    type="button"
+                                    className={`${estilos.btn} ${estilos.btnAdd}`}
+                                    onClick={() => setLinhas((linha) => linha + 1)}
+                                >
+                                    <Icon nome="plus" />
+                                </button>
+                            )}
                     </td>
                 </tr>
             );
