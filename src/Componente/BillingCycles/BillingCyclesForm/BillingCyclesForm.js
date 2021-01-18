@@ -12,14 +12,9 @@ import { DELETE_CYCLE, POST_CYCLE, PUT_CYCLE } from "../../../api";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
-import { adicionarFeedbacks, atualizarTimer } from "../../../store/ui.js";
-import { filtrarTabs, trocarTab } from "../../../store/tabs.js";
-import {
-    limparDados,
-    alterarNumeroLinhas,
-    alterarValores,
-    alterarLinhasRemovidas
-} from "../../../store/form.js";
+import { mostrarFeedback } from "../../../store/ui.js";
+import { mostrarTabInicial } from "../../../store/tabs.js";
+import { resetarForm } from "../../../store/form.js";
 
 const gerarJsonValores = (listaName, listaValue, removidos, type) => {
     const listaValores = listaName.reduce((ant, atual) => {
@@ -39,7 +34,7 @@ const gerarJsonValores = (listaName, listaValue, removidos, type) => {
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
     const { timer } = useSelector((state) => state.ui);
-    const { dados, creditos, debitos ,linhas } = useSelector((state) => state.form);
+    const { dados, creditos, debitos, linhas } = useSelector((state) => state.form);
     const dispatch = useDispatch();
 
     // Estados do formulário.
@@ -60,8 +55,7 @@ const BillingCyclesForm = ({ method }) => {
             } else if (response?.ok) {
                 feedkback = [{ msg: sucesso, status: "sucesso" }];
 
-                dispatch(trocarTab("tabLista"));
-                dispatch(filtrarTabs("tabLista", "tabIncluir"));
+                dispatch(mostrarTabInicial());
             } else {
                 feedkback = [{
                     msg: "Falha ao enviar os dados!",
@@ -69,8 +63,7 @@ const BillingCyclesForm = ({ method }) => {
                 }];
             }
 
-            dispatch(adicionarFeedbacks(feedkback));
-            dispatch(atualizarTimer(false));
+            dispatch(mostrarFeedback(feedkback));
         }
     };
 
@@ -128,13 +121,11 @@ const BillingCyclesForm = ({ method }) => {
         };
 
         await handleSubmit(PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
-        dispatch(limparDados());
     }
 
     const handleDelete = async (e) => {
         e.preventDefault();
         await handleSubmit(DELETE_CYCLE(dados._id), "Dados removidos com sucesso!");
-        dispatch(limparDados());
     }
 
     const eventosForm = {
@@ -151,35 +142,7 @@ const BillingCyclesForm = ({ method }) => {
 
     React.useEffect(() => {
         return () => {
-            dispatch(alterarNumeroLinhas({
-                lista: "creditos",
-                valor: 1
-            }));
-
-            dispatch(alterarValores({
-                type: "creditos",
-                valor: { names: [], values: [] }
-            }));
-
-            dispatch(alterarLinhasRemovidas({
-                lista: "creditos",
-                valor: []
-            }));
-
-            dispatch(alterarNumeroLinhas({
-                lista: "debitos",
-                valor: 1
-            }));
-
-            dispatch(alterarValores({
-                type: "debitos",
-                valor: { names: [], values: [] }
-            }));
-
-            dispatch(alterarLinhasRemovidas({
-                lista: "debitos",
-                valor: []
-            }));
+            dispatch(resetarForm());
         };
     }, [dispatch])
 
@@ -206,11 +169,7 @@ const BillingCyclesForm = ({ method }) => {
                         <button
                             type="button"
                             className={`${estilos.btn} ${estilos.btnCancelar}`}
-                            onClick={() => {
-                                dispatch(limparDados());
-                                dispatch(trocarTab("tabLista"));
-                                dispatch(filtrarTabs("tabLista", "tabIncluir"));
-                            }}
+                            onClick={() => dispatch(mostrarTabInicial())}
                         >Cancelar</button>
                     )
                 }

@@ -5,14 +5,13 @@ import TituloSessao from "../Util/TituloSessao/TituloSessao.js";
 import Tabs from "./Tabs/Tabs.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
-import { trocarTab, filtrarTabs } from "../../store/tabs.js";
+import { mostrarTabInicial } from "../../store/tabs.js";
 
 const BillingCycles = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        dispatch(trocarTab("tabLista"));
-        dispatch(filtrarTabs("tabLista", "tabIncluir"));
+        dispatch(mostrarTabInicial());;
     }, [dispatch]);
 
     return (

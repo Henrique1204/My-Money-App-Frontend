@@ -79,6 +79,42 @@ export const {
     alterarLinhasRemovidas,
     addValores,
     alterarValores
-} = slice.actions; 
+} = slice.actions;
+
+export const resetarForm = () => (dispatch) => {
+    const valores = ["creditos", "debitos"];
+
+    valores.forEach((valor) => {
+        dispatch(alterarNumeroLinhas({
+            lista: valor,
+            valor: 1
+        }));
+    
+        dispatch(alterarValores({
+            type: valor,
+            valor: { names: [], values: [] }
+        }));
+    
+        dispatch(alterarLinhasRemovidas({
+            lista: valor,
+            valor: []
+        }));
+    });
+
+    dispatch(limparDados());
+};
+
+export const duplicarLinha = (payload) => (dispatch) => {
+    const { type, indice } = payload;
+
+    dispatch(alterarLinhaDuplicada({
+        lista: type,
+        duplicata: {
+            name: `name_${type}_${indice}`,
+            value: `value_${type}_${indice}`
+        }
+    }));
+    dispatch(alterarNumeroLinhas({ lista: type }));
+};
 
 export default slice.reducer;

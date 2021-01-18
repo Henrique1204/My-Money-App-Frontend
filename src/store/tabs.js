@@ -28,4 +28,9 @@ export const mostrarTabPersonalizada = (payload) => (dispatch) => {
     dispatch(filtrarTabs(payload));
 };
 
+export const mostrarTabInicial = () => (dispatch) => {
+    dispatch(trocarTab("tabLista"));
+    dispatch(filtrarTabs("tabLista", "tabIncluir"));
+} 
+
 export default slice.reducer;

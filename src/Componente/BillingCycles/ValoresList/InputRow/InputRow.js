@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     alterarNumeroLinhas,
     alterarLinhaDuplicada,
+    duplicarLinha,
     addLinhasRemovidas
 } from "../../../../store/form.js";
 
@@ -22,30 +23,16 @@ const InputRow = ({ valorName, valorValue, readonly, indice, type }) => {
     const [removido, setRemovido] = React.useState(false);
 
     const adicionarLinha = () => {
-        dispatch(alterarNumeroLinhas({
-            lista: type
-        }));
+        dispatch(alterarNumeroLinhas({ lista: type }));
     };
 
     const duplicarLinhas = () => {
-        dispatch(alterarLinhaDuplicada({
-            lista: type,
-            duplicata: {
-                name: `name_${type}_${indice}`,
-                value: `value_${type}_${indice}`
-            }
-        }));
-        dispatch(alterarNumeroLinhas({
-            lista: type
-        }));
+        dispatch(duplicarLinha({ type, indice }))
     };
 
     const removerLinhas = () => {
         if (linhas[type].numero > (linhas[type].removidas.length + 1)) {
-            dispatch(addLinhasRemovidas({
-                lista: type,
-                valor: indice
-            }));
+            dispatch(addLinhasRemovidas({ lista: type, valor: indice }));
         }
     };
 

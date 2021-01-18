@@ -20,4 +20,10 @@ const slice = createSlice({
 });
 
 export const { adicionarFeedbacks, removerFeedbacks, atualizarTimer } = slice.actions;
+
+export const mostrarFeedback = (payload) => (dispatch) => {
+    dispatch(adicionarFeedbacks(payload));
+    dispatch(atualizarTimer(false));
+};
+
 export default slice.reducer;
