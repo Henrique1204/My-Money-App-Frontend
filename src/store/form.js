@@ -4,7 +4,10 @@ const slice = createSlice({
     name: "form",
     initialState: {
         dados: null,
-        linhas: 1,
+        linhas: {
+            numero: 1,
+            duplicata: null
+        },
         creditos: {
             names: [],
             values: []
@@ -17,8 +20,11 @@ const slice = createSlice({
         limparDados(state) {
             state.dados = null;
         },
-        alterarLinhas(state, action) {
-            state.linhas = action.payload || state.linhas + 1;
+        alterarNumeroLinhas(state, action) {
+            state.linhas.numero = action.payload || state.linhas.numero + 1;
+        },
+        alterarLinhaDuplicada(state, action) {
+            state.linhas.duplicata = action.payload;
         },
         addCredito(state, action) {
             const { type, name, valor } = action.payload;
@@ -39,6 +45,12 @@ const slice = createSlice({
     }
 });
 
-export const { preencherDados, limparDados, addCredito, alterarLinhas } = slice.actions; 
+export const {
+    preencherDados,
+    limparDados,
+    addCredito,
+    alterarNumeroLinhas,
+    alterarLinhaDuplicada
+} = slice.actions; 
 
 export default slice.reducer;

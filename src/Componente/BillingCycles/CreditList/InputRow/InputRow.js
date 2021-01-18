@@ -6,12 +6,24 @@ import InputList from "../InputList.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
 // Importando actions da store.
-import { alterarLinhas } from "../../../../store/form.js";
+import { alterarNumeroLinhas, alterarLinhaDuplicada } from "../../../../store/form.js";
 import AcoesBtn from "../AcoesBtn/AcoesBtn";
 
 const InputRow = ({ valorName, valorValue, readonly, indice }) => {
     // Estados globais.
     const dispatch = useDispatch();
+
+    const duplicarLinhas = () => {
+        dispatch(alterarLinhaDuplicada({
+            name: `name_credit_${indice}`,
+            value: `value_credit_${indice}`
+        }));
+        dispatch(alterarNumeroLinhas());
+    }
+
+    React.useEffect(() => {
+        dispatch(alterarLinhaDuplicada(null));
+    }, [dispatch]);
 
     return (
         <tr className={estilos.linha}>
@@ -43,13 +55,14 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
                 />
             </td>
 
-            <td>
-                { !readonly && (
-                    <AcoesBtn click={() => dispatch(alterarLinhas())} icon="plus" estilo="add" />
-                )}
-
-                <AcoesBtn icon="clone" estilo="duplicar" />
-            </td>
+            {
+                !readonly && (
+                    <td>
+                        <AcoesBtn click={() => dispatch(alterarNumeroLinhas())} icon="plus" estilo="add" />
+                        <AcoesBtn click={duplicarLinhas} icon="clone" estilo="duplicar" />
+                    </td>
+                )
+            }
         </tr>
     );
 };

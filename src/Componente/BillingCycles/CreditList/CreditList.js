@@ -5,19 +5,33 @@ import estilos from "./CreditList.module.css";
 import InputRow from "./InputRow/InputRow.js";
 // Importando utilitários do redux.
 import { useDispatch, useSelector } from "react-redux";
-import { alterarLinhas } from "../../../store/form";
+import { alterarNumeroLinhas } from "../../../store/form";
 
 const CreditList = ({ method }) => {
     // Estados globais.
-    const { dados, linhas } = useSelector((state) => state.form);
+    const { dados, linhas, creditos } = useSelector((state) => state.form);
     const dispatch = useDispatch();
 
     const gerarCampos = (credits) => {
         let elementos = [];
 
-        for (let i = 0; i < linhas; i++) {
-            const valorName = (credits?.length && credits[i] && credits[i].name) || "";
-            const valorValue = (credits?.length && credits[i] && credits[i].value) || "";
+        for (let i = 0; i < linhas.numero; i++) {
+            let valorName;
+            let valorValue;
+
+            if (linhas.duplicata && true) {
+                const names = creditos.names.find((n) => n.name === linhas.duplicata.name);
+                const values = creditos.values.find((v) => v.name === linhas.duplicata.value);
+
+                console.log(names, values);
+
+                valorName = names.value;
+                valorValue = values.value;
+            } else {
+                valorName = (credits?.length && credits[i] && credits[i].name) || "";
+                valorValue = (credits?.length && credits[i] && credits[i].value) || "";
+            }
+
             const readonly = method === "DELETE";
 
             elementos.push(
@@ -35,7 +49,7 @@ const CreditList = ({ method }) => {
     }
 
     React.useEffect(() => {
-        dispatch(alterarLinhas(dados?.credits?.length || 1));
+        dispatch(alterarNumeroLinhas(dados?.credits?.length || 1));
     }, [dispatch, dados]);
 
     return (
