@@ -14,15 +14,25 @@ import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
 import { adicionarFeedbacks, atualizarTimer } from "../../../store/ui.js";
 import { filtrarTabs, trocarTab } from "../../../store/tabs.js";
-import { limparDados, alterarNumeroLinhas } from "../../../store/form.js";
+import {
+    limparDados,
+    alterarNumeroLinhas,
+    alterarCredito,
+    alterarLinhasRemovidas
+} from "../../../store/form.js";
 
-const gerarJsonCreditos = (listaName, listaValue) => {
-    const listaCreditos = listaName.map(({ name, value }) => {
-        const id = name.substring(name.lastIndexOf("_")+1);
+const gerarJsonCreditos = (listaName, listaValue, removidos) => {
+    const listaCreditos = listaName.reduce((ant, atual) => {
+        const id = atual.name.substring(atual.name.lastIndexOf("_")+1);
         const valueCorrespondente = listaValue.find((item) => item.name === `value_credit_${id}`);
 
-        return { name: value, value: valueCorrespondente.value };
-    });
+        if (removidos.includes(Number(id))) {
+            console.log(ant);
+            return ant;
+        }
+
+        return [...ant, { name: atual.value, value: valueCorrespondente.value }];
+    }, []);
 
     return listaCreditos;
 }
@@ -30,7 +40,7 @@ const gerarJsonCreditos = (listaName, listaValue) => {
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
     const { timer } = useSelector((state) => state.ui);
-    const { dados, creditos } = useSelector((state) => state.form);
+    const { dados, creditos, linhas } = useSelector((state) => state.form);
     const dispatch = useDispatch();
 
     // Estados do formulário.
@@ -41,9 +51,7 @@ const BillingCyclesForm = ({ method }) => {
     // Estados do fetch.
     const { loading, request } = useFetch();
 
-    const handleSubmit = async (e, config, sucesso) => {
-        e.preventDefault();
-
+    const handleSubmit = async (config, sucesso) => {
         if (name.validar() && month.validar() && year.validar() && timer) {
             const { response, json } = await request(config.url, config.options);
             let feedkback;
@@ -68,7 +76,8 @@ const BillingCyclesForm = ({ method }) => {
     };
 
     const handlePost = (e) => {
-        const credits = gerarJsonCreditos(creditos.names, creditos.values);
+        e.preventDefault();
+        const credits = gerarJsonCreditos(creditos.names, creditos.values, linhas.removidas);
 
         const body = {
             name: name.valor,
@@ -77,11 +86,14 @@ const BillingCyclesForm = ({ method }) => {
             credits
         };
 
-        handleSubmit(e, POST_CYCLE(body), "Dados adicionados com sucesso!");
+        console.log(body);
+
+        handleSubmit(POST_CYCLE(body), "Dados adicionados com sucesso!");
     }
 
     const handlePut = async (e) => {
-        const credits = gerarJsonCreditos(creditos.names, creditos.values);
+        e.preventDefault();
+        const credits = gerarJsonCreditos(creditos.names, creditos.values, linhas.removidas);
 
         const body = {
             name: name.valor,
@@ -90,12 +102,13 @@ const BillingCyclesForm = ({ method }) => {
             credits
         };
 
-        await handleSubmit(e, PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
+        await handleSubmit(PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
         dispatch(limparDados());
     }
 
     const handleDelete = async (e) => {
-        await handleSubmit(e, DELETE_CYCLE(dados._id), "Dados removidos com sucesso!");
+        e.preventDefault();
+        await handleSubmit(DELETE_CYCLE(dados._id), "Dados removidos com sucesso!");
         dispatch(limparDados());
     }
 
@@ -112,7 +125,11 @@ const BillingCyclesForm = ({ method }) => {
     }
 
     React.useEffect(() => {
-        return () => dispatch(alterarNumeroLinhas(1));
+        return () => {
+            dispatch(alterarNumeroLinhas(1));
+            dispatch(alterarCredito({ names: [], values: [] }));
+            dispatch(alterarLinhasRemovidas([]));
+        };
     }, [dispatch])
 
     return (

@@ -5,13 +5,21 @@ import estilos from "./InputRow.module.css";
 import InputList from "../InputList.js";
 import AcoesBtn from "../AcoesBtn/AcoesBtn.js";
 // Importando utilitários do Redux.
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
-import { alterarNumeroLinhas, alterarLinhaDuplicada } from "../../../../store/form.js";
+import {
+    alterarNumeroLinhas,
+    alterarLinhaDuplicada,
+    addLinhasRemovidas
+} from "../../../../store/form.js";
 
 const InputRow = ({ valorName, valorValue, readonly, indice }) => {
     // Estados globais.
+    const { linhas } = useSelector((state) => state.form );
     const dispatch = useDispatch();
+
+    // Estados local.
+    const [removido, setRemovido] = React.useState(false);
 
     const duplicarLinhas = () => {
         dispatch(alterarLinhaDuplicada({
@@ -21,12 +29,24 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
         dispatch(alterarNumeroLinhas());
     };
 
+    const removerLinhas = () => {
+        dispatch(addLinhasRemovidas(indice));
+    };
+
     React.useEffect(() => {
         dispatch(alterarLinhaDuplicada(null));
     }, [dispatch]);
 
+    React.useEffect(() => {
+        setRemovido(() => linhas.removidas.reduce((ant, atual) => {
+                if (ant) return ant;
+                return atual === indice
+            }, false)
+        );
+    }, [linhas.removidas, indice]);
+
     return (
-        <tr className={estilos.linha}>
+        <tr id={`linha${indice}`} className={`${estilos.linha} ${(removido) ? estilos.removido : ""}`}>
             <td>
                 <InputList
                     useFormConfig={[valorName, ""]}
@@ -38,6 +58,7 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
                     }}
 
                     type={"names"}
+                    removido={removido}
                 />
             </td>
 
@@ -52,6 +73,7 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
                     }}
 
                     type={"values"}
+                    removido={removido}
                 />
             </td>
 
@@ -60,6 +82,7 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
                     <td>
                         <AcoesBtn click={() => dispatch(alterarNumeroLinhas())} icon="plus" estilo="add" />
                         <AcoesBtn click={duplicarLinhas} icon="clone" estilo="duplicar" />
+                        <AcoesBtn click={removerLinhas} icon="trash-o" estilo="remover" />
                     </td>
                 )
             }

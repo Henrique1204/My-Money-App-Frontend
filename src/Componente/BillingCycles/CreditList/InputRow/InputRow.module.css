@@ -1,3 +1,7 @@
+.linha.removido {
+    display: none;
+}
+
 .linha td {
     height: 60px;
     padding-right: 2rem;

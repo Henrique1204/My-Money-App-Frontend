@@ -15,8 +15,8 @@ const CreditList = ({ method }) => {
     const [elementos, setElementos] = React.useState(null);
 
     React.useEffect(() => {
-        setElementos([]);
         const credits = dados?.credits;
+        let novosElementos = [];
 
         for (let i = 0; i < linhas.numero; i++) {
             let valorName;
@@ -35,16 +35,16 @@ const CreditList = ({ method }) => {
 
             const readonly = method === "DELETE";
 
-            const novoElemento = (<InputRow
+            novosElementos.push(<InputRow
                 key={i}
                 valorName={valorName}
                 valorValue={valorValue}
                 readonly={readonly}
                 indice={i}
             />);
-
-            setElementos((elementos) => [...elementos, novoElemento]);
         }
+
+        setElementos(novosElementos);
     
     }, [creditos.names, creditos.values, dados?.credits, linhas.duplicata, linhas.numero, method]);
 

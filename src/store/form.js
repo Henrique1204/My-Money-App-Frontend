@@ -6,7 +6,8 @@ const slice = createSlice({
         dados: null,
         linhas: {
             numero: 1,
-            duplicata: null
+            duplicata: null,
+            removidas: []
         },
         creditos: {
             names: [],
@@ -26,6 +27,12 @@ const slice = createSlice({
         alterarLinhaDuplicada(state, action) {
             state.linhas.duplicata = action.payload;
         },
+        addLinhasRemovidas(state, action) {
+            state.linhas.removidas = [...state.linhas.removidas, action.payload];
+        },
+        alterarLinhasRemovidas(state, action) {
+            state.linhas.removidas = action.payload;
+        },
         addCredito(state, action) {
             const { type, name, valor } = action.payload;
             const stateDebito = state.creditos[type]
@@ -41,6 +48,9 @@ const slice = createSlice({
             } else {
                 state.creditos[type][indice].value = valor;
             }
+        },
+        alterarCredito(state, action) {
+            state.creditos = action.payload;
         }
     }
 });
@@ -48,9 +58,12 @@ const slice = createSlice({
 export const {
     preencherDados,
     limparDados,
-    addCredito,
     alterarNumeroLinhas,
-    alterarLinhaDuplicada
+    alterarLinhaDuplicada,
+    addLinhasRemovidas,
+    alterarLinhasRemovidas,
+    addCredito,
+    alterarCredito
 } = slice.actions; 
 
 export default slice.reducer;

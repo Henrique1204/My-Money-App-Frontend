@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 // Importando actions da store.
 import { addCredito } from "../../../store/form.js";
 
-const InputList = ({ useFormConfig, inputConfig, type  }) => {
+const InputList = ({ useFormConfig, inputConfig, type, removido }) => {
     // Estados globais.
     const dispatch = useDispatch();
 
@@ -18,22 +18,31 @@ const InputList = ({ useFormConfig, inputConfig, type  }) => {
     const onChange = (e) => {
         campo.onChange(e);
 
-        dispatch(addCredito({
-            type,
-            name: inputConfig.name,
-            valor: e.target.value
-        }));
+        if (!removido) {
+            dispatch(addCredito({
+                type,
+                name: inputConfig.name,
+                valor: e.target.value
+            }));
+        }
     }
 
     React.useEffect(() => {
-        dispatch(addCredito({
-            type,
-            name: inputConfig.name,
-            valor: campo.valor
-        }));
-    }, [dispatch, type, inputConfig, campo]);
+        if (!removido) {
+            dispatch(addCredito({
+                type,
+                name: inputConfig.name,
+                valor: campo.valor
+            }));
+        }
+    }, [dispatch, type, inputConfig, campo.valor, removido]);
 
-    return <InputForm label="" {...inputConfig} {...campo} onChange={onChange} />
+    return <InputForm
+        label=""
+        {...inputConfig}
+        {...campo}
+        onChange={onChange}
+    />
 };
 
 export default InputList;
