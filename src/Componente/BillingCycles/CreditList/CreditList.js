@@ -11,9 +11,12 @@ const CreditList = ({ method }) => {
     // Estados globais.
     const { dados, linhas, creditos } = useSelector((state) => state.form);
     const dispatch = useDispatch();
+    // Estados local.
+    const [elementos, setElementos] = React.useState(null);
 
-    const gerarCampos = (credits) => {
-        let elementos = [];
+    React.useEffect(() => {
+        setElementos([]);
+        const credits = dados?.credits;
 
         for (let i = 0; i < linhas.numero; i++) {
             let valorName;
@@ -22,8 +25,6 @@ const CreditList = ({ method }) => {
             if (linhas.duplicata && true) {
                 const names = creditos.names.find((n) => n.name === linhas.duplicata.name);
                 const values = creditos.values.find((v) => v.name === linhas.duplicata.value);
-
-                console.log(names, values);
 
                 valorName = names.value;
                 valorValue = values.value;
@@ -34,19 +35,18 @@ const CreditList = ({ method }) => {
 
             const readonly = method === "DELETE";
 
-            elementos.push(
-                <InputRow
-                    key={i}
-                    valorName={valorName}
-                    valorValue={valorValue}
-                    readonly={readonly}
-                    indice={i}
-                />
-            );
-        }
+            const novoElemento = (<InputRow
+                key={i}
+                valorName={valorName}
+                valorValue={valorValue}
+                readonly={readonly}
+                indice={i}
+            />);
 
-        return elementos;
-    }
+            setElementos((elementos) => [...elementos, novoElemento]);
+        }
+    
+    }, [creditos.names, creditos.values, dados?.credits, linhas.duplicata, linhas.numero, method]);
 
     React.useEffect(() => {
         dispatch(alterarNumeroLinhas(dados?.credits?.length || 1));
@@ -66,7 +66,7 @@ const CreditList = ({ method }) => {
                 </thead>
 
                 <tbody>
-                    {gerarCampos(dados?.credits).map((campo) => campo)}
+                    { elementos?.map((elementos) => elementos) }
                 </tbody>
             </table>
         </fieldset>

@@ -3,11 +3,11 @@ import React from "react";
 import estilos from "./InputRow.module.css";
 // Importando componentes da interface.
 import InputList from "../InputList.js";
+import AcoesBtn from "../AcoesBtn/AcoesBtn.js";
 // Importando utilitários do Redux.
 import { useDispatch } from "react-redux";
 // Importando actions da store.
 import { alterarNumeroLinhas, alterarLinhaDuplicada } from "../../../../store/form.js";
-import AcoesBtn from "../AcoesBtn/AcoesBtn";
 
 const InputRow = ({ valorName, valorValue, readonly, indice }) => {
     // Estados globais.
@@ -19,7 +19,7 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
             value: `value_credit_${indice}`
         }));
         dispatch(alterarNumeroLinhas());
-    }
+    };
 
     React.useEffect(() => {
         dispatch(alterarLinhaDuplicada(null));
