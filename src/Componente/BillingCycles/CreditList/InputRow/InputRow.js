@@ -30,7 +30,9 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
     };
 
     const removerLinhas = () => {
-        dispatch(addLinhasRemovidas(indice));
+        if (linhas.numero <= linhas.removidas.length) {
+            dispatch(addLinhasRemovidas(indice));
+        }
     };
 
     React.useEffect(() => {
