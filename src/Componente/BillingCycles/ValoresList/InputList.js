@@ -6,9 +6,9 @@ import useForm from "../../../Hooks/useForm.js";
 // Improtando utilitários do redux.
 import { useDispatch } from "react-redux";
 // Importando actions da store.
-import { addCredito } from "../../../store/form.js";
+import { addValores } from "../../../store/form.js";
 
-const InputList = ({ useFormConfig, inputConfig, type, removido }) => {
+const InputList = ({ useFormConfig, inputConfig, type, lista, removido }) => {
     // Estados globais.
     const dispatch = useDispatch();
 
@@ -19,8 +19,9 @@ const InputList = ({ useFormConfig, inputConfig, type, removido }) => {
         campo.onChange(e);
 
         if (!removido) {
-            dispatch(addCredito({
+            dispatch(addValores({
                 type,
+                lista,
                 name: inputConfig.name,
                 valor: e.target.value
             }));
@@ -29,13 +30,14 @@ const InputList = ({ useFormConfig, inputConfig, type, removido }) => {
 
     React.useEffect(() => {
         if (!removido) {
-            dispatch(addCredito({
+            dispatch(addValores({
                 type,
+                lista,
                 name: inputConfig.name,
                 valor: campo.valor
             }));
         }
-    }, [dispatch, type, inputConfig, campo.valor, removido]);
+    }, [dispatch, lista, inputConfig, campo.valor, removido, type]);
 
     return <InputForm
         label=""

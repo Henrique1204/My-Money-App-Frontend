@@ -1,11 +1,19 @@
 .form {
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
 }
 
-.btnBox {
+.form > div {
+    grid-column: span 2;
+}
+
+.form > fieldset {
+    grid-column: span 3;
+}
+
+.form > div.btnBox {
     grid-column: 1 / -1;
     padding: 1rem 0 0;
     border-top: 2px solid #DFDFDF;

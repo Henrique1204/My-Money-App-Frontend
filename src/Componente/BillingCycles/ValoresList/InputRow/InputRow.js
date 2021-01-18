@@ -13,7 +13,7 @@ import {
     addLinhasRemovidas
 } from "../../../../store/form.js";
 
-const InputRow = ({ valorName, valorValue, readonly, indice }) => {
+const InputRow = ({ valorName, valorValue, readonly, indice, type }) => {
     // Estados globais.
     const { linhas } = useSelector((state) => state.form );
     const dispatch = useDispatch();
@@ -21,31 +21,48 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
     // Estados local.
     const [removido, setRemovido] = React.useState(false);
 
+    const adicionarLinha = () => {
+        dispatch(alterarNumeroLinhas({
+            lista: type
+        }));
+    };
+
     const duplicarLinhas = () => {
         dispatch(alterarLinhaDuplicada({
-            name: `name_credit_${indice}`,
-            value: `value_credit_${indice}`
+            lista: type,
+            duplicata: {
+                name: `name_${type}_${indice}`,
+                value: `value_${type}_${indice}`
+            }
         }));
-        dispatch(alterarNumeroLinhas());
+        dispatch(alterarNumeroLinhas({
+            lista: type
+        }));
     };
 
     const removerLinhas = () => {
-        if (linhas.numero <= linhas.removidas.length) {
-            dispatch(addLinhasRemovidas(indice));
+        if (linhas[type].numero > (linhas[type].removidas.length + 1)) {
+            dispatch(addLinhasRemovidas({
+                lista: type,
+                valor: indice
+            }));
         }
     };
 
     React.useEffect(() => {
-        dispatch(alterarLinhaDuplicada(null));
-    }, [dispatch]);
+        dispatch(alterarLinhaDuplicada({
+            lista: type,
+            duplicata: null
+        }));
+    }, [dispatch, type]);
 
     React.useEffect(() => {
-        setRemovido(() => linhas.removidas.reduce((ant, atual) => {
+        setRemovido(() => linhas[type].removidas.reduce((ant, atual) => {
                 if (ant) return ant;
                 return atual === indice
             }, false)
         );
-    }, [linhas.removidas, indice]);
+    }, [linhas, indice, type]);
 
     return (
         <tr id={`linha${indice}`} className={`${estilos.linha} ${(removido) ? estilos.removido : ""}`}>
@@ -54,12 +71,13 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
                     useFormConfig={[valorName, ""]}
 
                     inputConfig={{
-                        name: `name_credit_${indice}`,
-                        type:"text",
+                        name: `name_${type}_${indice}`,
+                        type: "text",
                         readonly
                     }}
 
-                    type={"names"}
+                    type={type}
+                    lista={"names"}
                     removido={removido}
                 />
             </td>
@@ -69,20 +87,21 @@ const InputRow = ({ valorName, valorValue, readonly, indice }) => {
                     useFormConfig={[valorValue, "numero"]}
 
                     inputConfig={{
-                        name: `value_credit_${indice}`,
+                        name: `value_${type}_${indice}`,
                         type: "text",
                         readonly
                     }}
 
-                    type={"values"}
+                    type={type}
+                    lista={"values"}
                     removido={removido}
                 />
             </td>
 
             {
                 !readonly && (
-                    <td>
-                        <AcoesBtn click={() => dispatch(alterarNumeroLinhas())} icon="plus" estilo="add" />
+                    <td className={estilos.acoes}>
+                        <AcoesBtn click={adicionarLinha} icon="plus" estilo="add" />
                         <AcoesBtn click={duplicarLinhas} icon="clone" estilo="duplicar" />
                         <AcoesBtn click={removerLinhas} icon="trash-o" estilo="remover" />
                     </td>

@@ -6,3 +6,8 @@
     height: 60px;
     padding-right: 2rem;
 }
+
+.linha td.acoes {
+    padding-right: 0px;
+    width: 130px;
+}

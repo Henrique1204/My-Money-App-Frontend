@@ -3,7 +3,7 @@ import React from "react";
 import estilos from "./BillingCyclesForm.module.css";
 // Importando componente da interface.
 import InputForm from "../../Util/InputForm/InputForm.js";
-import CreditList from "../CreditList/CreditList.js";
+import ValoresList from "../ValoresList/ValoresList.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
@@ -17,30 +17,29 @@ import { filtrarTabs, trocarTab } from "../../../store/tabs.js";
 import {
     limparDados,
     alterarNumeroLinhas,
-    alterarCredito,
+    alterarValores,
     alterarLinhasRemovidas
 } from "../../../store/form.js";
 
-const gerarJsonCreditos = (listaName, listaValue, removidos) => {
-    const listaCreditos = listaName.reduce((ant, atual) => {
+const gerarJsonValores = (listaName, listaValue, removidos, type) => {
+    const listaValores = listaName.reduce((ant, atual) => {
         const id = atual.name.substring(atual.name.lastIndexOf("_")+1);
-        const valueCorrespondente = listaValue.find((item) => item.name === `value_credit_${id}`);
+        const valueCorrespondente = listaValue.find((item) => item.name === `value_${type}_${id}`);
 
         if (removidos.includes(Number(id))) {
-            console.log(ant);
             return ant;
         }
 
         return [...ant, { name: atual.value, value: valueCorrespondente.value }];
     }, []);
 
-    return listaCreditos;
+    return listaValores;
 }
 
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
     const { timer } = useSelector((state) => state.ui);
-    const { dados, creditos, linhas } = useSelector((state) => state.form);
+    const { dados, creditos, debitos ,linhas } = useSelector((state) => state.form);
     const dispatch = useDispatch();
 
     // Estados do formulário.
@@ -77,29 +76,55 @@ const BillingCyclesForm = ({ method }) => {
 
     const handlePost = (e) => {
         e.preventDefault();
-        const credits = gerarJsonCreditos(creditos.names, creditos.values, linhas.removidas);
+
+        const credits = gerarJsonValores(
+            creditos.names,
+            creditos.values,
+            linhas["creditos"].removidas,
+            "creditos"
+        );
+
+        const debts = gerarJsonValores(
+            debitos.names,
+            debitos.values,
+            linhas["debitos"].removidas,
+            "debitos"
+        );
 
         const body = {
             name: name.valor,
             month: Number(month.valor),
             year: Number(year.valor),
-            credits
+            credits,
+            debts
         };
-
-        console.log(body);
 
         handleSubmit(POST_CYCLE(body), "Dados adicionados com sucesso!");
     }
 
     const handlePut = async (e) => {
         e.preventDefault();
-        const credits = gerarJsonCreditos(creditos.names, creditos.values, linhas.removidas);
+
+        const credits = gerarJsonValores(
+            creditos.names,
+            creditos.values,
+            linhas["creditos"].removidas,
+            "creditos"
+        );
+
+        const debts = gerarJsonValores(
+            debitos.names,
+            debitos.values,
+            linhas["debitos"].removidas,
+            "debitos"
+        );
 
         const body = {
             name: name.valor,
             month: Number(month.valor),
             year: Number(year.valor),
-            credits
+            credits,
+            debts
         };
 
         await handleSubmit(PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
@@ -126,9 +151,35 @@ const BillingCyclesForm = ({ method }) => {
 
     React.useEffect(() => {
         return () => {
-            dispatch(alterarNumeroLinhas(1));
-            dispatch(alterarCredito({ names: [], values: [] }));
-            dispatch(alterarLinhasRemovidas([]));
+            dispatch(alterarNumeroLinhas({
+                lista: "creditos",
+                valor: 1
+            }));
+
+            dispatch(alterarValores({
+                type: "creditos",
+                valor: { names: [], values: [] }
+            }));
+
+            dispatch(alterarLinhasRemovidas({
+                lista: "creditos",
+                valor: []
+            }));
+
+            dispatch(alterarNumeroLinhas({
+                lista: "debitos",
+                valor: 1
+            }));
+
+            dispatch(alterarValores({
+                type: "debitos",
+                valor: { names: [], values: [] }
+            }));
+
+            dispatch(alterarLinhasRemovidas({
+                lista: "debitos",
+                valor: []
+            }));
         };
     }, [dispatch])
 
@@ -138,7 +189,8 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
             <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
         
-            <CreditList method={method} />
+            <ValoresList method={method} type={"creditos"} />
+            <ValoresList method={method} type={"debitos"} />
 
             <div className={estilos.btnBox}>
                 <button

@@ -1,14 +1,16 @@
-.CreditList {
+.ValoresList {
+    height: 100%;
     border: 1px solid #CCC;
     color: #666;
     grid-column: 1 / -1;
 }
 
-.CreditList legend {
+.ValoresList legend {
     font-weight: bold;
+    text-transform: capitalize;
 }
 
-.CreditList table {
+.ValoresList table {
     width: 100%;
     text-align: left;
 }

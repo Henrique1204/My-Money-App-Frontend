@@ -5,11 +5,22 @@ const slice = createSlice({
     initialState: {
         dados: null,
         linhas: {
-            numero: 1,
-            duplicata: null,
-            removidas: []
+            creditos: {
+                numero: 1,
+                duplicata: null,
+                removidas: []
+            },
+            debitos: {
+                numero: 1,
+                duplicata: null,
+                removidas: []
+            }
         },
         creditos: {
+            names: [],
+            values: []
+        },
+        debitos: {
             names: [],
             values: []
         }
@@ -22,35 +33,39 @@ const slice = createSlice({
             state.dados = null;
         },
         alterarNumeroLinhas(state, action) {
-            state.linhas.numero = action.payload || state.linhas.numero + 1;
+            const { lista, valor } = action.payload;
+            state.linhas[lista].numero = valor || state.linhas[lista].numero + 1;
         },
         alterarLinhaDuplicada(state, action) {
-            state.linhas.duplicata = action.payload;
+            const { lista, duplicata } = action.payload;
+            state.linhas[lista].duplicata = duplicata;
         },
         addLinhasRemovidas(state, action) {
-            state.linhas.removidas = [...state.linhas.removidas, action.payload];
+            const { lista, valor } = action.payload;
+            state.linhas[lista].removidas = [...state.linhas[lista].removidas, valor];
         },
         alterarLinhasRemovidas(state, action) {
-            state.linhas.removidas = action.payload;
+            const { lista, valor } = action.payload;
+            state.linhas[lista].removidas = valor;
         },
-        addCredito(state, action) {
-            const { type, name, valor } = action.payload;
-            const stateDebito = state.creditos[type]
+        addValores(state, action) {
+            const { type ,lista, name, valor } = action.payload;
+            const stateDebito = state[type][lista]
 
             const indice = stateDebito
             .indexOf(stateDebito.find((item) => item.name === name));
 
             if (indice === -1) {
-                state.creditos[type] = [...stateDebito, {
+                state[type][lista] = [...stateDebito, {
                     name: name,
                     value: valor
                 }];
             } else {
-                state.creditos[type][indice].value = valor;
+                state[type][lista][indice].value = valor;
             }
         },
-        alterarCredito(state, action) {
-            state.creditos = action.payload;
+        alterarValores(state, action) {
+            state[action.payload.type] = action.payload.valor;
         }
     }
 });
@@ -62,8 +77,8 @@ export const {
     alterarLinhaDuplicada,
     addLinhasRemovidas,
     alterarLinhasRemovidas,
-    addCredito,
-    alterarCredito
+    addValores,
+    alterarValores
 } = slice.actions; 
 
 export default slice.reducer;
