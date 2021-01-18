@@ -22,6 +22,7 @@ const ValoresList = ({ method, type }) => {
         for (let i = 0; i < linhas[type].numero; i++) {
             let valorName;
             let valorValue;
+            let valorStatus
 
             if (linhas[type].duplicata && true) {
                 const names = valor.names.find((n) => n.name === linhas[type].duplicata.name);
@@ -29,9 +30,19 @@ const ValoresList = ({ method, type }) => {
 
                 valorName = names.value;
                 valorValue = values.value;
+
+                if (type === "debitos") {
+                    const status = valor.status.find((s) => s.name === linhas[type].duplicata.status);
+                    valorStatus = status.value;
+                }
             } else {
                 valorName = (valores?.length && valores[i] && valores[i].name) || "";
                 valorValue = (valores?.length && valores[i] && valores[i].value) || "";
+
+                if (type === "debitos") {
+                    valorStatus = (valores?.length && valores[i] && valores[i].status) || ""
+                    console.log(valorStatus);
+                }
             }
 
             const readonly = method === "DELETE";
@@ -43,6 +54,7 @@ const ValoresList = ({ method, type }) => {
                 readonly={readonly}
                 indice={i}
                 type={type}
+                valorStatus={valorStatus}
             />);
         }
 
@@ -68,6 +80,11 @@ const ValoresList = ({ method, type }) => {
                     <tr>
                         <th>Nome</th>
                         <th>Valor</th>
+
+                        { type === "debitos" && (
+                            <th>Status</th>
+                        )}
+
                         <th>Ações</th>
                     </tr>
                 </thead>

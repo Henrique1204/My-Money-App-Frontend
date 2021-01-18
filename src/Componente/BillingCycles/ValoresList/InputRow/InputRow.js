@@ -4,6 +4,7 @@ import estilos from "./InputRow.module.css";
 // Importando componentes da interface.
 import InputList from "../InputList.js";
 import AcoesBtn from "../AcoesBtn/AcoesBtn.js";
+import SelectList from "../SelectList/SelectList.js";
 // Importando utilitários do Redux.
 import { useDispatch, useSelector } from "react-redux";
 // Importando actions da store.
@@ -14,7 +15,7 @@ import {
     addLinhasRemovidas
 } from "../../../../store/form.js";
 
-const InputRow = ({ valorName, valorValue, readonly, indice, type }) => {
+const InputRow = ({ valorName, valorValue, valorStatus, readonly, indice, type }) => {
     // Estados globais.
     const { linhas } = useSelector((state) => state.form );
     const dispatch = useDispatch();
@@ -84,6 +85,22 @@ const InputRow = ({ valorName, valorValue, readonly, indice, type }) => {
                     removido={removido}
                 />
             </td>
+
+            {
+                type === "debitos" && (
+                    <td>
+                        <SelectList
+                            valorInicial={valorStatus}
+                            selectConfig={{
+                                name: `status_${type}_${indice}`,
+                                readonly
+                            }}
+
+                            removido={removido}
+                        />
+                    </td>
+                )
+            }
 
             {
                 !readonly && (

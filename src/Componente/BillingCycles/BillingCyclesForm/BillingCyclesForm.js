@@ -16,13 +16,22 @@ import { mostrarFeedback } from "../../../store/ui.js";
 import { mostrarTabInicial } from "../../../store/tabs.js";
 import { resetarForm } from "../../../store/form.js";
 
-const gerarJsonValores = (listaName, listaValue, removidos, type) => {
+const gerarJsonValores = (listaName, listaValue, removidos, type, listaStatus) => {
     const listaValores = listaName.reduce((ant, atual) => {
         const id = atual.name.substring(atual.name.lastIndexOf("_")+1);
         const valueCorrespondente = listaValue.find((item) => item.name === `value_${type}_${id}`);
+        const status = listaStatus?.find((item) => item.name === `status_${type}_${id}`);
 
         if (removidos.includes(Number(id))) {
             return ant;
+        }
+
+        if (status?.value) {
+            return [...ant, {
+                name: atual.value,
+                value: valueCorrespondente.value,
+                status: status.value
+            }];
         }
 
         return [...ant, { name: atual.value, value: valueCorrespondente.value }];
@@ -81,7 +90,8 @@ const BillingCyclesForm = ({ method }) => {
             debitos.names,
             debitos.values,
             linhas["debitos"].removidas,
-            "debitos"
+            "debitos",
+            debitos.status
         );
 
         const body = {
@@ -109,7 +119,8 @@ const BillingCyclesForm = ({ method }) => {
             debitos.names,
             debitos.values,
             linhas["debitos"].removidas,
-            "debitos"
+            "debitos",
+            debitos.status
         );
 
         const body = {

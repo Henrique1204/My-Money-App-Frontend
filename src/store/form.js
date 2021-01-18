@@ -22,7 +22,8 @@ const slice = createSlice({
         },
         debitos: {
             names: [],
-            values: []
+            values: [],
+            status: []
         }
     },
     reducers: {
@@ -50,13 +51,13 @@ const slice = createSlice({
         },
         addValores(state, action) {
             const { type ,lista, name, valor } = action.payload;
-            const stateDebito = state[type][lista]
+            const stateValor = state[type][lista]
 
-            const indice = stateDebito
-            .indexOf(stateDebito.find((item) => item.name === name));
+            const indice = stateValor
+            .indexOf(stateValor.find((item) => item.name === name));
 
             if (indice === -1) {
-                state[type][lista] = [...stateDebito, {
+                state[type][lista] = [...stateValor, {
                     name: name,
                     value: valor
                 }];
@@ -90,9 +91,13 @@ export const resetarForm = () => (dispatch) => {
             valor: 1
         }));
     
+        const valorValores = (valor === "debitos")
+        ? { names: [], values: [], status: [] } 
+        : { names: [], values: [] };
+
         dispatch(alterarValores({
             type: valor,
-            valor: { names: [], values: [] }
+            valor: valorValores
         }));
     
         dispatch(alterarLinhasRemovidas({
@@ -107,12 +112,19 @@ export const resetarForm = () => (dispatch) => {
 export const duplicarLinha = (payload) => (dispatch) => {
     const { type, indice } = payload;
 
+    const duplicata = (type === "debitos")
+    ? {
+        name: `name_${type}_${indice}`,
+        value: `value_${type}_${indice}`,
+        status: `status_${type}_${indice}`
+    } : {
+        name: `name_${type}_${indice}`,
+        value: `value_${type}_${indice}`
+    };
+
     dispatch(alterarLinhaDuplicada({
         lista: type,
-        duplicata: {
-            name: `name_${type}_${indice}`,
-            value: `value_${type}_${indice}`
-        }
+        duplicata
     }));
     dispatch(alterarNumeroLinhas({ lista: type }));
 };
