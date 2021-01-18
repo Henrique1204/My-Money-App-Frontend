@@ -4,6 +4,7 @@ import estilos from "./BillingCyclesForm.module.css";
 // Importando componente da interface.
 import InputForm from "../../Util/InputForm/InputForm.js";
 import ValoresList from "../ValoresList/ValoresList.js";
+import Summary from "./Summary/Summary.js";
 // Importando hooks personalizados.
 import useForm from "../../../Hooks/useForm.js";
 import useFetch from "../../../Hooks/useFetch.js";
@@ -163,6 +164,8 @@ const BillingCyclesForm = ({ method }) => {
             <InputForm label="Mês:" name="month" type="text" readonly={method === "DELETE"} {...month} />
             <InputForm label="Ano:" name="year" type="text" readonly={method === "DELETE"} {...year} />
         
+            <Summary className={estilos.summary} />
+
             <ValoresList method={method} type={"creditos"} />
             <ValoresList method={method} type={"debitos"} />
 

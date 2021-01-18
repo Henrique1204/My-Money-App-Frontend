@@ -9,6 +9,10 @@
     grid-column: span 2;
 }
 
+.form > fieldset.summary {
+    grid-column: 1 / -1;
+}
+
 .form > fieldset {
     grid-column: span 3;
 }

@@ -1,0 +1,14 @@
+.Summary {
+    padding: 0 1rem 1rem;
+    border: 1px solid #CCC;
+    color: #666;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1rem;
+}
+
+.Summary legend {
+    font-weight: bold;
+    text-transform: capitalize;
+    grid-column: 1 / -1;
+}
