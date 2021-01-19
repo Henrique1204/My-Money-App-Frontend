@@ -17,8 +17,13 @@
     height: 10rem;
 }
 
+.acoes {
+    min-width: 90px;
+}
+
 .btn {
-    padding: 0.5rem 0.6rem;
+    width: 32px;
+    height: 32px;
     border-radius: 4px;
     font-size: 0.875rem;
     border: none;

@@ -17,6 +17,18 @@
     grid-column: span 3;
 }
 
+@media (max-width: 1100px) {
+    .form > fieldset {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 800px) {
+    .form > div {
+        grid-column: 1 / -1;
+    }
+}
+
 .form > div.btnBox {
     grid-column: 1 / -1;
     padding: 1rem 0 0;

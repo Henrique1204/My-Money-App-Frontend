@@ -32,7 +32,7 @@ const BillingCyclesList = () => {
                         <th>Nome</th>
                         <th>Mês</th>
                         <th>Ano</th>
-                        <th>Ações</th>
+                        <th className={estilos.acoes} >Ações</th>
                     </tr>
                 </thead>
                 <tbody>

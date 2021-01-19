@@ -13,3 +13,9 @@
     width: 100%;
     text-align: left;
 }
+
+@media (max-width: 800px) {
+    .ValoresList table {
+        min-width: 420px;
+    }
+}
