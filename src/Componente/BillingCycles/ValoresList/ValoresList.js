@@ -41,7 +41,6 @@ const ValoresList = ({ method, type }) => {
 
                 if (type === "debitos") {
                     valorStatus = (valores?.length && valores[i] && valores[i].status) || ""
-                    console.log(valorStatus);
                 }
             }
 

@@ -2,3 +2,9 @@
     min-height: calc(100vh - 90px);
     padding: 1rem;
 }
+
+@media (max-width: 800px) {
+    .Container {
+        padding: 1rem 0.5rem;
+    }
+}
