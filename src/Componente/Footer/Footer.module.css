@@ -13,3 +13,9 @@
 .Footer a:hover {
     color: #0C91E8;
 }
+
+@media (max-width: 800px) {
+    .Footer {
+        text-align: center;
+    }
+}

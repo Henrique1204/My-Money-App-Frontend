@@ -11,9 +11,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .Logo .logoSec {
     font-weight: 100;
     color: #E6E6E6;
+}
+
+.Logo.escondido {
+    padding: 0;
+}
+
+.Logo.escondido span {
+    display: none;
 }

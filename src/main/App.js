@@ -10,9 +10,15 @@ import Feedback from "../Componente/Util/Feedbacks/Feedback.js";
 import Rotas from "./Rotas.js";
 // Importando componentes do react-router-dom.
 import { BrowserRouter } from "react-router-dom";
+import useMedia from "../Hooks/useMedia";
 
 const App = () => {
-  const [isMenuAberto, setIsMenuAberto] = React.useState(true);
+  const mobile = useMedia("(max-width: 800px)");
+  const [isMenuAberto, setIsMenuAberto] = React.useState(null);
+
+  React.useEffect(() => {
+    setIsMenuAberto(() => !mobile);
+  }, [mobile]);
 
   return (
     <BrowserRouter>

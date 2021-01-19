@@ -12,6 +12,12 @@ body {
     background-color: #D3D3E3;
 }
 
+@media (max-width: 800px) {
+    body {
+        padding-top: 40px;
+    }
+}
+
 h1, h2, h3, h4, p {
     margin: 0px;
     font-weight: normal;
@@ -67,13 +73,35 @@ main {
     }
 }
 
+@media (max-width: 800px) {
+    @keyframes crescer {
+        from {
+            max-width: 0;
+            font-size: 0rem;
+        }
+        to {
+            max-width: 16rem;
+            font-size: auto;
+        }
+    }
+    
+    @keyframes encolher {
+        from {
+            font-size: 0rem;
+            max-width: 16rem;
+        }
+        to {
+            max-width: 0;
+            font-size: auto;
+        }
+    }
+}
+
 .menuToggle {
-    max-width: 100px;
     animation: encolher 0.3s forwards;
 }
 
 .menuToggleAberto {
-    max-width: 16rem;
     white-space: nowrap;
     animation: crescer 0.3s forwards;
     overflow: hidden;

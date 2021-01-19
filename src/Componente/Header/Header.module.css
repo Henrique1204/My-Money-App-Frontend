@@ -28,3 +28,12 @@
 .btnMenu:hover {
     background-color: #0C61A8;
 }
+
+@media (max-width: 800px) {
+    .Header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1;
+    }
+}
