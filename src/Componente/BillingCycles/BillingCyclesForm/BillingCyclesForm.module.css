@@ -2,6 +2,7 @@
     margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    align-items: flex-start;
     gap: 1rem;
 }
 
