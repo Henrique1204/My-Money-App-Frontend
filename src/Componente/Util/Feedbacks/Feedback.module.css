@@ -6,8 +6,16 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
+    z-index: 100;
+}
+
+@media (max-width: 800px) {
+    .card {
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
