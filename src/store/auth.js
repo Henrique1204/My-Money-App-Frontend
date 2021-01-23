@@ -5,7 +5,7 @@ import { mostrarFeedback } from "./ui.js";
 // Importando configurações da API.
 import { VALIDAR_TOKEN } from "../api.js";
 
-const storageKey = "token";
+const storageKey = "user";
 
 const slice = createSlice({
     name: "auth",

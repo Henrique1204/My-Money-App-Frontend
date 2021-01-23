@@ -4,6 +4,12 @@
     display: flex;
 }
 
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .btnMenu {
     height: 100%;
     padding: 1rem;

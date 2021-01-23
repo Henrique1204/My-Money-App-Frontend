@@ -1,0 +1,85 @@
+.container {
+    position: relative;
+}
+
+.btn {
+    height: 100%;
+    padding: 0 1rem;
+    border: none;
+    font-size: 1rem;
+    text-transform: capitalize;
+    color: #F4F4F4;
+    background-color: #0C91E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    outline: none;
+}
+
+.btn:hover {
+    background-color: #0C61A8;
+}
+
+.btn span {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    color: #0C91E8;
+    background-color: #F4F4F4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover span {
+    color: #0C61A8;
+}
+
+.modal {
+    border-radius: 4px;
+    border-top: 1px solid #F4F4F4;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.modalConteudo {
+    padding: 1rem 3rem;
+    color: #F4F4F4;
+    background-color: #0C91E8;
+}
+
+.modal span {
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+}
+
+.email {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.modalFooter {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #EEE;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logout {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 2px;
+    font-size: 0.875rem;
+    color: #666;
+    background-color: #EEE;
+    cursor: pointer;
+    outline: none;
+}

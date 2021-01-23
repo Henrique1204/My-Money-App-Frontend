@@ -3,16 +3,19 @@ import React from "react";
 import estilos from "./Header.module.css";
 // Importando componentes da interface.
 import Logo from "./Logo/Logo.js";
+import NavBar from "./NavBar/NavBar.js";
 
 const Header = ({ isAberto, setIsAberto }) => {
     return (
         <header className={estilos.Header} >
             <Logo isAberto={isAberto} />
 
-            <nav>
+            <nav className={estilos.nav}>
                 <button className={`${estilos.btnMenu}`} onClick={() => setIsAberto((valor) => !valor)} >
                     <span></span>
                 </button>
+
+                <NavBar />
             </nav>
         </header>
     );
