@@ -40,7 +40,12 @@ const Auth = () => {
         e.preventDefault();
 
         if (name.validar && email.validar && password.validar) {
-            const body = { name: name.valor, email: email.valor, password: password.valor };
+            const body = {
+                name: name.valor,
+                email: email.valor,
+                password: password.valor,
+                confirm_password: password.valor
+            };
 
             const { url, options } = (login) ? LOGIN(body) : SIGNUP(body);
     

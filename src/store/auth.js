@@ -47,7 +47,7 @@ export const submit = ({ url, options }) => async (dispatch) => {
 
             dispatch(mostrarFeedback(feedbacks));
         } else {
-            dispatch(userFetched(res));
+            dispatch(userFetched(json));
         }
 
     } catch ({ message }) {

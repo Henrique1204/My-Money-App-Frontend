@@ -67,7 +67,7 @@ export const LOGIN = (body) => ({
 });
 
 export const SIGNUP = (body) => ({
-    url: `${URL_BASE_OAPI}/login`,
+    url: `${URL_BASE_OAPI}/signup`,
     options: {
         method: "POST",
         headers: {
