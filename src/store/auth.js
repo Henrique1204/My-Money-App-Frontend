@@ -5,13 +5,14 @@ import { mostrarFeedback } from "./ui.js";
 // Importando configurações da API.
 import { VALIDAR_TOKEN } from "../api.js";
 
-const storageKey = "user";
+const storageKey = "token";
 
 const slice = createSlice({
     name: "auth",
     initialState: {
-        user: localStorage.getItem(storageKey) || null,
-        validToken: false
+        user: null,
+        validToken: false,
+        token: localStorage.getItem(storageKey) || null
     },
     reducers: {
         tokenValidated(state, action) {
@@ -24,7 +25,7 @@ const slice = createSlice({
             }
         },
         userFetched(state, action) {
-            localStorage.setItem(storageKey, action.payload);
+            localStorage.setItem(storageKey, action.payload.token);
             state.user = action.payload;
             state.validToken = true;
         }

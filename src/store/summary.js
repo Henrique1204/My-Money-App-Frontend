@@ -3,7 +3,7 @@ import createAsyncSlice from "./util/createAsyncSlice.js";
 
 const slice = createAsyncSlice({
     name: "sumarry",
-    fetchConfig: GET_SUMMARY
+    fetchConfig: () => GET_SUMMARY(localStorage.getItem("token"))
 });
 
 export const fetchSummary = slice.asyncActions;

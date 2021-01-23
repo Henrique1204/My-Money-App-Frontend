@@ -103,7 +103,10 @@ const BillingCyclesForm = ({ method }) => {
             debts
         };
 
-        handleSubmit(POST_CYCLE(body), "Dados adicionados com sucesso!");
+        handleSubmit(
+            POST_CYCLE(body, localStorage.getItem("token")),
+            "Dados adicionados com sucesso!"
+        );
     }
 
     const handlePut = async (e) => {
@@ -132,12 +135,18 @@ const BillingCyclesForm = ({ method }) => {
             debts
         };
 
-        await handleSubmit(PUT_CYCLE(body, dados._id), "Dados atualizados com sucesso!");
+        await handleSubmit(
+            PUT_CYCLE(body, dados._id, localStorage.getItem("token")),
+            "Dados atualizados com sucesso!"
+        );
     }
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        await handleSubmit(DELETE_CYCLE(dados._id), "Dados removidos com sucesso!");
+        await handleSubmit(
+            DELETE_CYCLE(dados._id, localStorage.getItem("token")),
+            "Dados removidos com sucesso!"
+        );
     }
 
     const eventosForm = {

@@ -43,6 +43,7 @@ const useForm = (valorInicial, tipo, intervalo) => {
         valor,
         erro,
         setValor,
+        setErro,
         onChange: ({target}) => {
             if (erro) validar(valor);
             setValor(target.value);

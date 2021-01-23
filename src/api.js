@@ -1,46 +1,57 @@
 const URL_BASE_API = "http://localhost:3003/api";
 const URL_BASE_OAPI = "http://localhost:3003/oapi";
 
-export const GET_SUMMARY = () => ({
+export const GET_SUMMARY = (token) => ({
     url: `${URL_BASE_API}/billingCycles/summary`,
     options: {
-        method: "GET"
+        method: "GET",
+        headers: {
+            "Authorization": token
+        }
     }
 });
 
-export const GET_LIST = () => ({
+export const GET_LIST = (token) => ({
     url: `${URL_BASE_API}/billingCycles`,
     options: {
-        method: "GET"
+        method: "GET",
+        headers: {
+            "Authorization": token
+        }
     }
 });
 
-export const POST_CYCLE = (body) => ({
+export const POST_CYCLE = (body, token) => ({
     url: `${URL_BASE_API}/billingCycles`,
     options: {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": token
         },
         body: JSON.stringify(body)
     }
 });
 
-export const PUT_CYCLE = (body, id) => ({
+export const PUT_CYCLE = (body, id, token) => ({
     url: `${URL_BASE_API}/billingCycles/${id}`,
     options: {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": token
         },
         body: JSON.stringify(body)
     }
 });
 
-export const DELETE_CYCLE = (id) => ({
+export const DELETE_CYCLE = (id, token) => ({
     url: `${URL_BASE_API}/billingCycles/${id}`,
     options: {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Authorization": token
+        }
     }
 });
 
@@ -73,6 +84,6 @@ export const VALIDAR_TOKEN = (token) => ({
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(token)
+        body: token
     }
 });
