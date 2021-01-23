@@ -18,7 +18,7 @@ import { mostrarTabInicial } from "../../../store/tabs.js";
 import { resetarForm } from "../../../store/form.js";
 
 const gerarJsonValores = (listaName, listaValue, removidos, type, listaStatus) => {
-    const listaValores = listaName.reduce((ant, atual) => {
+    return listaName.reduce((ant, atual) => {
         const id = atual.name.substring(atual.name.lastIndexOf("_")+1);
         const valueCorrespondente = listaValue.find((item) => item.name === `value_${type}_${id}`);
         const status = listaStatus?.find((item) => item.name === `status_${type}_${id}`);
@@ -36,10 +36,8 @@ const gerarJsonValores = (listaName, listaValue, removidos, type, listaStatus) =
         }
 
         return [...ant, { name: atual.value, value: valueCorrespondente.value }];
-    }, []);
-
-    return listaValores;
-}
+    }, []).filter(({ name, value }) => name && value);
+};
 
 const BillingCyclesForm = ({ method }) => {
     // Estados globais.
@@ -54,6 +52,35 @@ const BillingCyclesForm = ({ method }) => {
 
     // Estados do fetch.
     const { loading, request } = useFetch();
+
+    const gerarBody = () => {
+        let body = {
+            name: name.valor,
+            month: Number(month.valor),
+            year: Number(year.valor),
+        };
+
+        const credits = gerarJsonValores(
+            creditos.names,
+            creditos.values,
+            linhas["creditos"].removidas,
+            "creditos"
+        );
+
+        if (credits.length) body = {...body, credits};
+
+        const debts = gerarJsonValores(
+            debitos.names,
+            debitos.values,
+            linhas["debitos"].removidas,
+            "debitos",
+            debitos.status
+        );
+
+        if (debts.length) body = {...body, debts};
+
+        return body;
+    }
 
     const handleSubmit = async (config, sucesso) => {
         if (name.validar() && month.validar() && year.validar() && timer) {
@@ -80,31 +107,8 @@ const BillingCyclesForm = ({ method }) => {
     const handlePost = (e) => {
         e.preventDefault();
 
-        const credits = gerarJsonValores(
-            creditos.names,
-            creditos.values,
-            linhas["creditos"].removidas,
-            "creditos"
-        );
-
-        const debts = gerarJsonValores(
-            debitos.names,
-            debitos.values,
-            linhas["debitos"].removidas,
-            "debitos",
-            debitos.status
-        );
-
-        const body = {
-            name: name.valor,
-            month: Number(month.valor),
-            year: Number(year.valor),
-            credits,
-            debts
-        };
-
         handleSubmit(
-            POST_CYCLE(body, localStorage.getItem("token")),
+            POST_CYCLE(gerarBody(), localStorage.getItem("token")),
             "Dados adicionados com sucesso!"
         );
     }
@@ -112,31 +116,9 @@ const BillingCyclesForm = ({ method }) => {
     const handlePut = async (e) => {
         e.preventDefault();
 
-        const credits = gerarJsonValores(
-            creditos.names,
-            creditos.values,
-            linhas["creditos"].removidas,
-            "creditos"
-        );
-
-        const debts = gerarJsonValores(
-            debitos.names,
-            debitos.values,
-            linhas["debitos"].removidas,
-            "debitos",
-            debitos.status
-        );
-
-        const body = {
-            name: name.valor,
-            month: Number(month.valor),
-            year: Number(year.valor),
-            credits,
-            debts
-        };
 
         await handleSubmit(
-            PUT_CYCLE(body, dados._id, localStorage.getItem("token")),
+            PUT_CYCLE(gerarBody(), dados._id, localStorage.getItem("token")),
             "Dados atualizados com sucesso!"
         );
     }

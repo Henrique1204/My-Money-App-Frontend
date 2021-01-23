@@ -5,7 +5,7 @@ import estilos from "./Auth.module.css";
 import InputForm from "../Util/InputForm/InputForm.js";
 import Icon from "../Util/Icon.js";
 // Importando utilitários do redux.
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Importando actions do reducer.
 import { submit } from "../../store/auth.js";
 // Importando configurações da API.
@@ -15,6 +15,7 @@ import useForm from "../../Hooks/useForm.js";
 
 const Auth = () => {
     // Estados globais.
+    const { loading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     // Estados local.
@@ -72,7 +73,9 @@ const Auth = () => {
                     <Icon nome="lock" />
                 </div>
 
-                <button className={estilos.btn}>{(login) ? "Entrar" : "Registrar-se"}</button>
+                <button className={estilos.btn} disabled={loading}>
+                    {(login) ? "Entrar" : "Registrar-se"}
+                </button>
 
                 <small onClick={trocarForm}>
                     {(login) ? "Novo usuário? Registre-se agora!" : "Já tem uma conta? Acesse agora!"}

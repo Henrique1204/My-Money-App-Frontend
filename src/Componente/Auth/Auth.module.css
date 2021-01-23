@@ -91,6 +91,11 @@
     outline: none;
 }
 
+.btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
 .form > small {
     margin-top: 1rem;
     font-size: 0.875rem;

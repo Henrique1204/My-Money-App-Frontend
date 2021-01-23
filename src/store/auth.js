@@ -12,7 +12,8 @@ const slice = createSlice({
     initialState: {
         user: null,
         validToken: false,
-        token: localStorage.getItem(storageKey) || null
+        token: localStorage.getItem(storageKey) || null,
+        loading: null
     },
     reducers: {
         tokenValidated(state, action) {
@@ -28,14 +29,18 @@ const slice = createSlice({
             localStorage.setItem(storageKey, action.payload.token);
             state.user = action.payload;
             state.validToken = true;
+        },
+        atualizarLoading(state, action) {
+            state.loading = action.payload;
         }
     }
 });
 
-export const { tokenValidated, userFetched } = slice.actions;
+export const { tokenValidated, userFetched, atualizarLoading } = slice.actions;
 
 export const submit = ({ url, options }) => async (dispatch) => {
     try {
+        dispatch(atualizarLoading(true));
         const res = await fetch(url, options);
         const json = await res.json();
 
@@ -55,6 +60,8 @@ export const submit = ({ url, options }) => async (dispatch) => {
             msg: message,
             status: "erro"
         }]))
+    } finally {
+        dispatch(atualizarLoading(false));
     }
 }
 
